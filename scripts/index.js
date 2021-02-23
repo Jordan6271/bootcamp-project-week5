@@ -1,3 +1,5 @@
+// Creating classes
+
 class Room {
     constructor(name, description, directions) {
         this._name = name;
@@ -148,11 +150,15 @@ class Enemy extends Character {
     }
 }
 
+// Displays information in current room
+
 function displayRoomInfo(room) {
     textContent = room.describe();
     document.getElementById("textarea").innerHTML = textContent;
     document.getElementById("usertext").focus();
 }
+
+// Executes when game starts
 
 function startGame() {
     currentRoom = foyer;
@@ -173,6 +179,8 @@ function startGame() {
         }
     })
 }
+
+// Room descriptions
 
 const foyer = new Room('foyer', `The chandelier dangling from the centre of the roof is the largest you've ever seen, and draws your attention. There are cobwebs all over it, giving you shivers and making you wonder if there is anyone in this house at all. You can see a large, looming staircase ascending to the north. There are also two doors on the ground level, one to the west and one to the east.`, `Would you like to go north, east, or west?`);
 
@@ -207,6 +215,8 @@ const tunnel = new Room('tunnel', `Usually you would think of the light at the e
 const innerSanctum = new Room('inner sanctum', `Massive boss here that looks like he wants to fuck you right up. Good luck. There are stairs leading upwards to the south but this guy really doesn't want you to get to them.`, `Would you like to run, fight, or die?`);
 
 const outside = new Room('outside', `You made it to safety. Let's not go back in there any time soon.`, `Go, the game has ended.`);
+
+// Linking rooms
 
 foyer.linkRoom('east', huntingLodge);
 foyer.linkRoom('north', upperFoyer);
@@ -265,5 +275,7 @@ tunnel.linkRoom('east', innerSanctum);
 
 innerSanctum.linkRoom('west', tunnel);
 innerSanctum.linkRoom('south', outside);
+
+// Starting the game 
 
 startGame();
