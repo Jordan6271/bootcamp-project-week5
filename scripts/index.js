@@ -154,30 +154,10 @@ class Enemy extends Character {
 
 function displayRoomInfo(room) {
     textContent = room.describe();
+    document.getElementById("title").innerHTML = `<h1>${room.name.toUpperCase()}</h1>`;
     document.getElementById("textarea").innerHTML = textContent;
+    document.getElementById("buttonarea").innerHTML = '<input type="text" id="usertext" />';
     document.getElementById("usertext").focus();
-}
-
-// Executes when game starts
-
-function startGame() {
-    currentRoom = foyer;
-    document.getElementById("textarea").innerHTML = "You enter the house and find yourself in the " + foyer._name + ". You hear a loud click behind you. You try to exit through the main door, but it is now locked. This place feels worse than the cold outside. You decide it would be safer to try and leave. " + foyer._description + " " + foyer._directions;
-
-    document.addEventListener('keydown', function (event) {
-        if (event.key === "Enter") {
-            command = document.getElementById('usertext').value.toLowerCase();
-            const directions = ["north", "south", "east", "west"];
-
-            if (directions.includes(command)) {
-                currentRoom = currentRoom.move(command);
-                displayRoomInfo(currentRoom); 
-            } else {
-                alert("You cannot do that, please try again");
-            }
-            document.getElementById('usertext').value = "";
-        }
-    })
 }
 
 // Room descriptions
@@ -276,6 +256,26 @@ tunnel.linkRoom('east', innerSanctum);
 innerSanctum.linkRoom('west', tunnel);
 innerSanctum.linkRoom('south', outside);
 
-// Starting the game 
+// Executes when game starts
 
-startGame();
+function startGame() {
+    currentRoom = foyer;
+    displayRoomInfo(foyer);
+    document.getElementById('title').innerHTML = `<h1>Where Am I?</h1>`
+    document.getElementById("textarea").innerHTML = "You enter the house and find yourself in the " + foyer._name + ". You hear a loud click behind you. You try to exit through the main door, but it is now locked. This place feels worse than the cold outside. You decide it would be safer to try and leave. " + foyer._description + " " + foyer._directions;
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === "Enter") {
+            command = document.getElementById('usertext').value.toLowerCase();
+            const directions = ["north", "south", "east", "west"];
+
+            if (directions.includes(command)) {
+                currentRoom = currentRoom.move(command);
+                displayRoomInfo(currentRoom); 
+            } else {
+                alert("You cannot do that, please try again");
+            }
+            document.getElementById('usertext').value = "";
+        }
+    })
+}
