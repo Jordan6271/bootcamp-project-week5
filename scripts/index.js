@@ -4,6 +4,8 @@ class Room {
     constructor(name, description, directions) {
         this._name = name;
         this._description = description;
+        this._enemy = enemy;
+        this._item = item;
         this._directions = directions;
         this._linkedRooms = {};
     }
@@ -14,6 +16,14 @@ class Room {
 
     get description() {
         return this._description;
+    }
+
+    get enemy() {
+        return this._enemy;
+    }
+
+    get item() {
+        return this._item;
     }
     
     get directions() {
@@ -26,6 +36,14 @@ class Room {
 
     set description(value) {
         this._description = value;
+    }
+
+    set enemy(value) {
+        this._enemy = value;
+    }
+
+    set item(value) {
+        this._item = value;
     }
 
     set directions(value) {
