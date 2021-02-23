@@ -4,8 +4,8 @@ class Room {
     constructor(name, description, directions) {
         this._name = name;
         this._description = description;
-        this._enemy = enemy;
-        this._item = item;
+        this._enemy = "";
+        this._item = "";
         this._directions = directions;
         this._linkedRooms = {};
     }
@@ -155,8 +155,39 @@ class Character {
 
 class Player extends Character {
     constructor(name, description, conversation, health, inventory) {
-        super(name, description, conversation, health);
-        this._inventory = inventory;
+        super(name, description, conversation);
+        this._inventory = [];
+        this._health = 100;
+    }
+
+    get health() {
+        return this._health;
+    }
+
+    get inventory() {
+        return this._inventory;
+    }
+
+    gainHealth(value, increase) {
+        if (increase) {
+            this._health = this._health + value;
+        } else {
+            this._health = this._health - value;
+        }
+        return this._health;
+    }
+
+    addToInventory(item) {
+        this._inventory.push(item);
+    }
+
+    checkInventory(item) {
+        for (let i = 0; i < this._inventory.length; i++) {
+            if (list[i] === item) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
@@ -274,6 +305,11 @@ tunnel.linkRoom('east', innerSanctum);
 innerSanctum.linkRoom('west', tunnel);
 innerSanctum.linkRoom('south', outside);
 
+
+const player = new Player();
+console.log(`Your current health is ${player.health}`);
+
+
 // Executes when game starts
 
 function startGame() {
@@ -286,10 +322,13 @@ function startGame() {
         if (event.key === "Enter") {
             command = document.getElementById('usertext').value.toLowerCase();
             const directions = ["north", "south", "east", "west"];
+            const commands = [`fight`, `take ${item.name}`, `search ${item.name}`, `inventory`];
 
             if (directions.includes(command)) {
                 currentRoom = currentRoom.move(command);
                 displayRoomInfo(currentRoom); 
+            } else if (commands.includes(command)) {
+                commandHandler(command, currentRoom.character);
             } else {
                 alert("You cannot do that, please try again");
             }
