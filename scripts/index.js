@@ -48,6 +48,62 @@ class Room {
     }
 }
 
+class Character {
+    constructor(name, description, conversation, health) {
+        this._name = name;
+        this._description = description;
+        this._conversation = conversation;
+        this._health = health;
+    }
+
+    get name() {
+        return this._name;
+    }
+
+    get description() {
+        return this._description;
+    }
+
+    get conversation() {
+        return this._conversation;
+    }
+
+    get health() {
+        return this._health;
+    }
+
+    set name(value) {
+        this._name = value;
+    }
+
+    set description(value) {
+        this._description = value;
+    }
+
+    set conversation(value) {
+        this._conversation = value;
+    }
+
+    set health(value) {
+        this._health = value;
+    }
+}
+
+class Player extends Character {
+    constructor(name, description, conversation, health, inventory) {
+        super(name, description, conversation, health);
+        this._inventory = inventory;
+    }
+}
+
+class Enemy extends Character {
+    constructor(name, description, conversation, health, power, weakness) {
+        super(name, description, conversation, health);
+        this._power = power;
+        this._weakness = weakness;
+    }
+}
+
 function displayRoomInfo(room) {
     textContent = room.describe();
     document.getElementById("textarea").innerHTML = textContent;
