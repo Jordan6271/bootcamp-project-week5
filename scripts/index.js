@@ -48,6 +48,50 @@ class Room {
     }
 }
 
+class Item {
+    constructor(name, description) {
+        this._name = name;
+        this._description = description;
+    }
+
+    get name() {
+        return this._name;
+    }
+
+    get description() {
+        return this._description;
+    }
+
+    set name(value) {
+        this._name = value;
+    }
+
+    set description(value) {
+        this._description = value;
+    }
+}
+
+class Weapon extends Item {
+    constructor(name, description, power) {
+        super(name, description);
+        this._power = power;
+    }
+}
+
+class Tool extends Item {
+    constructor(name, description, interaction) {
+        super(name, description);
+        this._interaction = interaction;
+    }
+}
+
+class Food extends Item {
+    constructor(name, description, health) {
+        super(name, description);
+        this._health = health;
+    }
+}
+
 class Character {
     constructor(name, description, conversation, health) {
         this._name = name;
