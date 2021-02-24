@@ -1,12 +1,13 @@
 // Creating classes
 
 class Room {
-    constructor(name, description, directions) {
+    constructor(name) {
         this._name = name;
-        this._description = description;
+        this._description = "";
+        this._victoryDescription = "";
         this._enemy = "";
         this._item = "";
-        this._directions = directions;
+        this._directions = "";
         this._linkedRooms = {};
     }
 
@@ -16,6 +17,10 @@ class Room {
 
     get description() {
         return this._description;
+    }
+
+    get victoryDescription() {
+        return this._victoryDescription;
     }
 
     get enemy() {
@@ -38,6 +43,10 @@ class Room {
         this._description = value;
     }
 
+    set victoryDescription(value) {
+        this._victoryDescription = value;
+    }
+
     set enemy(value) {
         this._enemy = value;
     }
@@ -51,7 +60,15 @@ class Room {
     }
 
     describe() {
-        return "You find yourself in the " + this._name + ". " + this._description + " " + this._directions;
+        if (this._name == 'Viewing Platform') {
+            return `You are currently on the ${this._name}.</p><p>${this._description}</p><p>${this._directions}</p>`
+        } else if (this._name == 'Tunnel') {
+            return `You are currently in a ${this._name}.</p><p>${this._description}</p><p>${this._directions}</p>`
+        } else if (this._name == 'Outside') { 
+            return `You have made your Escape from the Manor.</p><p>${this._description}</p><p>${this._directions}</p>`
+        } else {
+            return `You are currently in the ${this._name}.</p><p>${this._description}</p><p>${this._directions}</p>`
+        }
     }
 
     linkRoom(direction, roomToLink) {
