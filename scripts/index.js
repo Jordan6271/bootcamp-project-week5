@@ -342,9 +342,9 @@ console.log(`Your current health is ${player.health}`);
 // Executes when game starts
 function startGame() {
     currentRoom = foyer;
-    displayRoomInfo(foyer);
     document.getElementById('title').innerHTML = `<h1>Where Am I?</h1>`
-    document.getElementById("textarea").innerHTML = "You enter the house and find yourself in the " + foyer._name + ". You hear a loud click behind you. You try to exit through the main door, but it is now locked. This place feels worse than the cold outside. You decide it would be safer to try and leave. " + foyer._description + " " + foyer._directions;
+    document.getElementById("textarea").innerHTML = `You wake up in a daze. You are disoriented and dehydrated. All you remember is the raging storm of wind and rain that started without warning when you were walking home from work last night. You conclude that you must have found your way here, for shelter from the bitter cold, and passed out due to exhaustion. You can't hear the lashing rain anymore, only the sound of silence. You pick yourself up off the ground to try the front door, hoping you can sneak away before anyone notices your intrusion. Your hand reaches for the brass handle of the threatening doors to the outside world when you hear the click of a metal latch. You tremble, searching erratically for your mobile phone, to no avail. You are locked inside. If the front door is no longer an option, there must be another way to...</p>`;
+    document.getElementById("buttonarea").innerHTML = `<input id="foyerButton" type="button" value="Escape from the Manor" class="btn text-center" onclick="displayRoomInfo(foyer);"/>`;
 
     document.addEventListener('keydown', function (event) {
         if (event.key === "Enter") {
