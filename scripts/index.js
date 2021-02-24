@@ -286,54 +286,46 @@ const outside = new Room('Outside', `You made it to safety. Let's not go back in
 // Linking rooms
 foyer.linkRoom('east', huntingLodge);
 foyer.linkRoom('north', upperFoyer);
-foyer.linkRoom('west', groundCorridorWest1);
+foyer.linkRoom('west', westCorridor);
 
 huntingLodge.linkRoom('west', foyer);
 huntingLodge.linkRoom('north', banquetHall);
-huntingLodge.linkRoom('east', upperCorridorEast);
+huntingLodge.linkRoom('east', library);
 
 banquetHall.linkRoom('south', huntingLodge);
 banquetHall.linkRoom('north', kitchen);
 banquetHall.linkRoom('west', courtyard);
 
 kitchen.linkRoom('south', banquetHall);
-kitchen.linkRoom('west', basement);
+kitchen.linkRoom('west', ritualChamber);
 
 courtyard.linkRoom('east', banquetHall);
-courtyard.linkRoom('west', groundCorridorWest2);
+courtyard.linkRoom('west', conservatory);
 
-groundCorridorWest2.linkRoom('east', courtyard);
-groundCorridorWest2.linkRoom('west', basement);
-groundCorridorWest2.linkRoom('north', upperCorridorWest);
-groundCorridorWest2.linkRoom('south', groundCorridorWest1);
+conservatory.linkRoom('east', courtyard);
+conservatory.linkRoom('north', ritualChamber);
+conservatory.linkRoom('south', westCorridor);
 
-groundCorridorWest1.linkRoom('north', groundCorridorWest2);
-groundCorridorWest1.linkRoom('east', foyer);
-groundCorridorWest1.linkRoom('west', ballroom);
+westCorridor.linkRoom('north', conservatory);
+westCorridor.linkRoom('east', foyer);
+westCorridor.linkRoom('west', ballroom);
 
-ballroom.linkRoom('east', groundCorridorWest1);
-ballroom.linkRoom('north', observationDeck);
-ballroom.linkRoom('south', observationDeck);
+ballroom.linkRoom('east', westCorridor);
+ballroom.linkRoom('north', viewingPlatform);
+ballroom.linkRoom('south', viewingPlatform);
 
 upperFoyer.linkRoom('south', foyer);
-upperFoyer.linkRoom('east', upperCorridorEast);
-upperFoyer.linkRoom('west', observationDeck);
+upperFoyer.linkRoom('east', library);
+upperFoyer.linkRoom('west', viewingPlatform);
 
-upperCorridorEast.linkRoom('west', upperFoyer);
-upperCorridorEast.linkRoom('south', huntingLodge);
+library.linkRoom('west', upperFoyer);
+library.linkRoom('south', huntingLodge);
 
-observationDeck.linkRoom('east', upperFoyer);
-observationDeck.linkRoom('west', ballroom);
-observationDeck.linkRoom('north', upperCorridorWest);
+viewingPlatform.linkRoom('east', upperFoyer);
+viewingPlatform.linkRoom('west', ballroom);
 
-upperCorridorWest.linkRoom('south', observationDeck);
-upperCorridorWest.linkRoom('north', groundCorridorWest2);
-
-basement.linkRoom('north', kitchen);
-basement.linkRoom('west', groundCorridorWest2);
-basement.linkRoom('south', ritualChamber);
-
-ritualChamber.linkRoom('north', basement);
+ritualChamber.linkRoom('north', kitchen);
+ritualChamber.linkRoom('west', conservatory);
 ritualChamber.linkRoom('east', tunnel);
 
 tunnel.linkRoom('west', ritualChamber);
