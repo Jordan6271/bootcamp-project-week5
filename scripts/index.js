@@ -1,5 +1,4 @@
 // Creating classes
-
 class Room {
     constructor(name) {
         this._name = name;
@@ -217,7 +216,6 @@ class Enemy extends Character {
 }
 
 // Displays information in current room
-
 function displayRoomInfo(room) {
     textContent = room.describe();
     document.getElementById("title").innerHTML = `<h1>${room.name.toUpperCase()}</h1>`;
@@ -227,43 +225,65 @@ function displayRoomInfo(room) {
 }
 
 // Room descriptions
+const foyer = new Room;
+foyer.name = `Foyer`;
+foyer.description = `This grand entrance hall is spacious but sombre in appearance; cobwebs cling to every corner of the seemingly forgotten space around you. Elegant drapes hang lifelessly from rusted rails, which hide heavy iron barred windows. The room has been deprived of all natural light, but an immaculate chandelier hangs from the centre of the high ceiling, providing just enough light that you can vaguely make out the outline of an ornate, golden framed painting on the northern wall of the upper foyer; its subject is difficult to see from this distance. You feel alone in this almost bare expanse.`;
+foyer.directions = `Two doors are located on the ground floor, one in the east wall and one to the west. To the north, a grand staircase ascends to the first floor`;
 
-const foyer = new Room('foyer', `The chandelier dangling from the centre of the roof is the largest you've ever seen, and draws your attention. There are cobwebs all over it, giving you shivers and making you wonder if there is anyone in this house at all. You can see a large, looming staircase ascending to the north. There are also two doors on the ground level, one to the west and one to the east.`, `Would you like to go north, east, or west?`);
+const huntingLodge = new Room;
+huntingLodge.name = `Hunting Lodge`;
+huntingLodge.description = `This room is small and the air is warm. You are briefly soothed by the crackle of coals on the hearth, which to your surprise, is lit! You start to consider this space cosy. That is until you notice dozens of hunting trophies that adorn all four walls; each glassy gaze seeming to follow your every move. An almost lifelike bearskin rug covers the majority of the creaky wooden floorboards. The fire cannot quash the chills that run down your spine.`;
+huntingLodge.directions = `There are two doors in this room, one to the north and one to the west. To the east, a rough cut, marble staircase leads up to the first floor.`;
 
-const huntingLodge = new Room('hunting lodge', `This is the hunting lodge. There are stuffed animals around the room, deer heads mounted above the fireplace, and fur rugs that look like freshly killed bears.`, `Would you like to go north, east, or west?`);
+const banquetHall = new Room;
+banquetHall.name = `Banquet Hall`;
+banquetHall.description = `An enormous dinner table resides in the centre of this room full of various aromas. Most are mouth-wateringly good, others strange. You can’t decide if you want to salivate or be sick. Silver platters are laden with gigantic portions of several meats, exotic fruits, and pastries. Everything looks and smells fresh, as if it were cooked just for you. Taking pride of place at the head of the main table is an irresistible looking hog roast. You feel hungry and contemplate whether to eat.`;
+banquetHall.directions = `There are three doors in this room, a small door to the north and one to the south. To the west, large glass doors appear to lead to an outside area.`;
+banquetHall.victoryDescription = `An enormous dinner table has been upturned. Spoiled food is scattered all over the floor and up the walls. The corpse of a monstrous hog lies motionless.`;
 
-const banquetHall = new Room('banquet hall', `This is the banquet hall. There is glorious food on delicate looking tables. There is an odd looking pig on what looks like the head table.`, `Would you like to go north, south, or west?`);
+const kitchen = new Room;
+kitchen.name = `Kitchen`;
+kitchen.description = `There is not much space to move. A tiny stove is cluttered with dirty dishes and a cast iron cooking pot, dripping with some unidentifiable liquid. Some juicy looking green apples reside in a woven bowl on the countertop. Wonky wooden shelves hold a few empty jars. The door of a cupboard swings eerily on its last remaining hinge. A draft must be coming from somewhere.`;
+kitchen.directions = `There are two doors in this room. A small door to the south and one to the west which appears to lead to a descending staircase.`;
 
-const kitchen = new Room('kitchen', `This is the kitchen. There is the distinct smell of grease and cooked flesh. Also evil mushrooms are lurking. There are descending stairs to the west, which must go into a basement. There is also the door into the banquet hall to the south?`, `Would you like to go west or south?`);
+const courtyard = new Room;
+courtyard.name = `Courtyard`;
+courtyard.description = `The air is fresh and you breathe easier. Your attention is drawn to the beautiful natural stone fountain. Its white marble base has been delicately carved with stunning doves of peace and the water runs crystal clear. A huge oak tree towers over the grounds within the courtyard, close to the seemingly unbreachable northern boundary. Its branches look strong and sturdy. They sway with an almost human-like motion.`;
+courtyard.directions = `Two doors lead back into the manor. Large glass doors inhabit the wall to the east and a smaller glass door to a conservatory can be seen to the west.`;
+courtyard.victoryDescription = `A huge tree trunk lies along almost the entire length of the courtyard, unearthed from where it once stood. Snapped branches litter the cobbled floor. Miraculously, the beautiful stone fountain has avoided damage. Its white marble base has been delicately carved with stunning doves of peace and the water runs crystal clear.`;
 
-const courtyard = new Room('courtyard', `This is the courtyard. The cold winter air is refreshing, but the hedges at the edge of the yard look much too thick to push through. There is a fountain in the centre, but the fish have sharp teeth, they must be piranhas. Some of them have their bones showing, they must be eating each other. There is a tree swaying in the distance down the path, but it looks like it's slowly lumbering towards you. There is a door to the west, and a door to the kitchen to the west.`, `Would you like to go east or west?`);
+const conservatory = new Room;
+conservatory.name = `Conservatory`;
+conservatory.description = `The room is softly lit with natural light piercing through the foggy walls. A quaint, oak side table supports a bowl of ripe red apples. The cold tiled floor has been decorated with dark, damp soil from a smashed flower pot; shards of porcelain are scattered around your feet.  Human-like footprints can be seen heading north within the soil deposit, and you feel a tentative sense of hope that you are not the only person in the manor anymore.`;
+conservatory.directions = `There are three doors in this room. A wooden hatch in the north appears to lead to a descending staircase, a small glass door to the east appears to lead to an outdoor area, and a door to the south.`;
 
-const upperFoyer = new Room('upper foyer', `This is above the foyer, looking down.`, `Would you like to go east, west, or south?`);
+const westCorridor = new Room;
+westCorridor.name = `West Corridor`;
+westCorridor.description = `Two regimental lines of rusted suits of armour stand on either side of this narrow passageway, while a single, silver clad knight stands alone on the southern wall. Firmly grasped between two intertwined gauntlets is a striking looking sword, forged with distinguished expertise. The corridor is notably dark; there is just enough light from the glass door to the north to make several unlit torches in holders on the eastern wall visible.`;
+westCorridor.directions = `There are three doors in the corridor. To the north, a small glass door. There are two regular doors either side of you. One to the east and one directly opposite, to the west.`;
+westCorridor.victoryDescription = `Rusted suits of armour lay scattered along this narrow passageway, while a single, silver clad knight stands alone on the southern wall, his head bowed in recognition of your success. You hold his sword, presented as a gift for your admirable victory. The corridor is notably dark; there is just enough light from the glass door to the north to make several unlit torches in holders on the eastern wall visible. You hear soft classical music from behind the western wall.`;
 
-const groundCorridorWest1 = new Room('corridor', `Leads to other rooms.`, `Would you like to go west, north, or east?`);
+const ballroom = new Room;
+ballroom.name = `Ballroom`;
+ballroom.description = `Soft music plays from a gramophone in one corner of the room. You walk further onto the dance floor and the music stops. Your footsteps now echo on the polished floorboards and your blood runs cold unexplainably. You feel like you are being watched from every corner. Your attention is drawn suddenly by the sound of sobbing from behind the regal drawstring curtains that fall from the high ceiling down to the floor. Someone sounds in distress. Perhaps they are looking for an exit too?`;
+ballroom.directions = `There is just one door in this room, to the east. There are two spiralled stairwells that rise up to a spectacular balcony above the ballroom on the north and south walls.`;
+ballroom.victoryDescription = `The room is eerily silent. Your footsteps echo on the polished floorboards. You remember the evil that previously resided here and curse at your trusting, helpful nature. Thankfully, you no longer feel like you are being watched.`;
 
-const upperCorridorEast = new Room('corridor', `Looking down on the hunting lodge.`, `Would you like to go south or west?`);
+const viewingPlatform = new Room('Viewing Platform', `Looking down on the ballroom. Winding stairs to the west leads down to the ballroom. Door the the east goes to the upper foyer. Door to the west goes to a corridor.`, `Would you like to go north, east, or west?`);
 
-const groundCorridorWest2 = new Room('corridor', `There is a door to a basement, stairs up to another corridor, and doors to the south and east.`, `Would you like to go north, east, south, or west?`);
+const upperFoyer = new Room('Upper Foyer', `This is above the foyer, looking down.`, `Would you like to go east, west, or south?`);
 
-const ballroom = new Room('ballroom', `Description goes here. Maybe some mobs to fight. Door to the east leads to a corridor, ascending stairs to the north and south both lead to the upper observation deck.`, `Would you like to go east, north, or south?`);
+const library = new Room('Library', `Looking down on the hunting lodge.`, `Would you like to go south or west?`);
 
-const observationDeck = new Room('observationDeck', `Looking down on the ballroom. Winding stairs to the west leads down to the ballroom. Door the the east goes to the upper foyer. Door to the west goes to a corridor.`, `Would you like to go north, east, or west?`);
+const ritualChamber = new Room('Ritual Chamber', `Ascending stairs to the west leading to a corridor on the ground floor. More ascending stairs on the north wall near the northeast corner leading to the kitchen. Tunnel to the east.`, `Would you like to go north, west, or east?`);
 
-const upperCorridorWest = new Room('corridor', `Door to the south leads to the observation deck above the ballroom. Descending stairs to the north leads to a corridor on the ground floor.`, `Would you like to go north or south?`);
+const tunnel = new Room('Tunnel', `Usually you would think of the light at the end of the tunnel, but this place is so dark that you cannot even see the end. Dread looms.`, `Would you like to continue to the east, or turn back and go west?`);
 
-const basement = new Room('basement', `Ascending stairs to the west leading to a corridor on the ground floor. More ascending stairs on the north wall near the northeast corner leading to the kitchen. Door to the south leading to the ritual chamber.`, `Would you like to go north, west, or south?`);
+const innerSanctum = new Room('Inner Sanctum', `Massive boss here that looks like he wants to fuck you right up. Good luck. There are stairs leading upwards to the south but this guy really doesn't want you to get to them.`, `Would you like to run, fight, or die?`);
 
-const ritualChamber = new Room('ritual chamber', `Door to the north leading to the basement. Hidden entrance to the east leading to a tunnel.`, `Would you like to go north or east?`);
-
-const tunnel = new Room('tunnel', `Usually you would think of the light at the end of the tunnel, but this place is so dark that you cannot even see the end. Dread looms.`, `Would you like to continue to the east, or turn back and go west?`);
-
-const innerSanctum = new Room('inner sanctum', `Massive boss here that looks like he wants to fuck you right up. Good luck. There are stairs leading upwards to the south but this guy really doesn't want you to get to them.`, `Would you like to run, fight, or die?`);
-
-const outside = new Room('outside', `You made it to safety. Let's not go back in there any time soon.`, `Go, the game has ended.`);
+const outside = new Room('Outside', `You made it to safety. Let's not go back in there any time soon.`, `Go, the game has ended.`);
 
 // Linking rooms
-
 foyer.linkRoom('east', huntingLodge);
 foyer.linkRoom('north', upperFoyer);
 foyer.linkRoom('west', groundCorridorWest1);
@@ -328,7 +348,6 @@ console.log(`Your current health is ${player.health}`);
 
 
 // Executes when game starts
-
 function startGame() {
     currentRoom = foyer;
     displayRoomInfo(foyer);
