@@ -227,12 +227,12 @@ function displayRoomInfo(room) {
 // Room descriptions
 const foyer = new Room;
 foyer.name = `Foyer`;
-foyer.description = `This grand entrance hall is spacious but sombre in appearance; cobwebs cling to every corner of the seemingly forgotten space around you. Elegant drapes hang lifelessly from rusted rails, which hide heavy iron barred windows. The room has been deprived of all natural light, but an immaculate chandelier hangs from the centre of the high ceiling, providing just enough light that you can vaguely make out the outline of an ornate, golden framed painting on the northern wall of the upper foyer; its subject is difficult to see from this distance. You feel alone in this almost bare expanse.`;
-foyer.directions = `Two doors are located on the ground floor, one in the east wall and one to the west. To the north, a grand staircase ascends to the first floor`;
+foyer.description = `This grand entrance hall is spacious but sombre in appearance; cobwebs cling to every corner of the seemingly forgotten space around you. Elegant drapes hang lifelessly from rusted rails, which hide heavy iron barred windows. The room has been deprived of all natural light, but an immaculate chandelier hangs from the centre of the high ceiling, providing just enough light that you can vaguely make out the outline of two ornate, golden framed paintings, side by side on the northern wall of the upper foyer; it is difficult to see the subject of either from this distance. You feel alone in this almost bare expanse.`;
+foyer.directions = `Two doors are located on the ground floor, one in the east wall and one to the west. To the north, a grand staircase ascends to the first floor.`;
 
 const huntingLodge = new Room;
 huntingLodge.name = `Hunting Lodge`;
-huntingLodge.description = `This room is small and the air is warm. You are briefly soothed by the crackle of coals on the hearth, which to your surprise, is lit! You start to consider this space cosy. That is until you notice dozens of hunting trophies that adorn all four walls; each glassy gaze seeming to follow your every move. An almost lifelike bearskin rug covers the majority of the creaky wooden floorboards. The fire cannot quash the chills that run down your spine.`;
+huntingLodge.description = `This room is small and the air is warm. You are briefly soothed by the crackle of coals on the hearth, which to your surprise, is lit! A copper coal bucket sits to the side. You start to consider this space cosy. That is until you notice dozens of hunting trophies that adorn all four walls; each glassy gaze seeming to follow your every move. An almost lifelike bearskin rug covers the majority of the creaky wooden floorboards. The fire cannot quash the chills that run down your spine.`;
 huntingLodge.directions = `There are two doors in this room, one to the north and one to the west. To the east, a rough cut, marble staircase leads up to the first floor.`;
 
 const banquetHall = new Room;
@@ -261,32 +261,48 @@ const westCorridor = new Room;
 westCorridor.name = `West Corridor`;
 westCorridor.description = `Two regimental lines of rusted suits of armour stand on either side of this narrow passageway, while a single, silver clad knight stands alone on the southern wall. Firmly grasped between two intertwined gauntlets is a striking looking sword, forged with distinguished expertise. The corridor is notably dark; there is just enough light from the glass door to the north to make several unlit torches in holders on the eastern wall visible.`;
 westCorridor.directions = `There are three doors in the corridor. To the north, a small glass door. There are two regular doors either side of you. One to the east and one directly opposite, to the west.`;
-westCorridor.victoryDescription = `Rusted suits of armour lay scattered along this narrow passageway, while a single, silver clad knight stands alone on the southern wall, his head bowed in recognition of your success. You hold his sword, presented as a gift for your admirable victory. The corridor is notably dark; there is just enough light from the glass door to the north to make several unlit torches in holders on the eastern wall visible. You hear soft classical music from behind the western wall.`;
+westCorridor.victoryDescription = `Rusted suits of armour lay scattered along this narrow passageway, while a single, silver clad knight stands alone on the southern wall, his head bowed in recognition of your unexpected success. While he refuses to give up his sword, the experience that you gained from the fight feels like it could prove valuable. The corridor is notably dark; there is just enough light from the glass door to the north to make several unlit torches in holders on the eastern wall visible.`;
 
 const ballroom = new Room;
 ballroom.name = `Ballroom`;
-ballroom.description = `Soft music plays from a gramophone in one corner of the room. You walk further onto the dance floor and the music stops. Your footsteps now echo on the polished floorboards and your blood runs cold unexplainably. You feel like you are being watched from every corner. Your attention is drawn suddenly by the sound of sobbing from behind the regal drawstring curtains that fall from the high ceiling down to the floor. Someone sounds in distress. Perhaps they are looking for an exit too?`;
-ballroom.directions = `There is just one door in this room, to the east. There are two spiralled stairwells that rise up to a spectacular balcony above the ballroom on the north and south walls.`;
-ballroom.victoryDescription = `The room is eerily silent. Your footsteps echo on the polished floorboards. You remember the evil that previously resided here and curse at your trusting, helpful nature. Thankfully, you no longer feel like you are being watched.`;
+ballroom.description = `Soft music plays from a gramophone in one corner of the room. You walk further onto the dance floor and the music stops. You pause and look up to a crystal chandelier as you hear it’s gemstones collide with one another for no apparent reason. Your footsteps now echo on the polished floorboards and your blood runs cold unexplainably. You feel like you are being watched from every corner. Your attention is drawn suddenly by the sound of sobbing from behind the regal drawstring curtains that fall from the high ceiling down to the floor. Someone sounds in distress. Perhaps they are looking for an exit too?`;
+ballroom.directions = `There is just one door in this room, to the east. There are two spiralled stairways that rise up to a spectacular balcony above the ballroom on the north and south walls.`;
+ballroom.victoryDescription = `The room is eerily silent. The crystal chandelier now hangs still. Your footsteps echo on the polished floorboards. You remember the evil that previously resided here and curse at your trusting, helpful nature. Thankfully, you no longer feel like you are being watched.`;
 
-const viewingPlatform = new Room('Viewing Platform', `Looking down on the ballroom. Winding stairs to the west leads down to the ballroom. Door the the east goes to the upper foyer. Door to the west goes to a corridor.`, `Would you like to go north, east, or west?`);
+const viewingPlatform = new Room;
+viewingPlatform.name = `Viewing Platform`;
+viewingPlatform.description = `Waist-high silver railings run the length of this impressive balcony that hangs over the ballroom floor.The area is illuminated by the crystal chandelier which you can now see must be constructed with hundreds upon thousands of individual diamonds, each reflecting the light, creating the illusion of twinkling stars. Half a dozen high-backed chairs, almost throne-like in appearance, are positioned in a semi circle facing toward a music stand, complete with various sheet music and a rather exquisit looking silver flute, which almost blinds you as it catches the light from above. So too, does a perfectly formed hand mirror, with a carved ivory frame and smooth reflective surface.`;
+viewingPlatform.directions = `There are two spiralled stairways that lead back down to the Ballroom floor, one to the north and one to the south. There is also a door to the east.`;
 
-const upperFoyer = new Room('Upper Foyer', `This is above the foyer, looking down.`, `Would you like to go east, west, or south?`);
+const upperFoyer = new Room;
+upperFoyer.name = `Upper Foyer`;
+upperFoyer.description = `The space above the main Foyer seems to serve the pure purpose of a means to traverse between rooms on the upper floor. There are no outstanding features, and very little to stop and admire. This is except for the two elaborate, golden framed paintings on the northern wall which you now have a better view of. The first image unnerves you a little; the oily eyes of a tall, well-dressed man holding a glass of crimson wine bore into your soul. The second painting is of an ancient looking grandfather clock; it appears to be showing an oddly specific time.`;
+upperFoyer.directions = `This empty hallway leads to two rooms, one to the east and one to the west. The grand staircase to the south leads back down to the main foyer.`;
 
-const library = new Room('Library', `Looking down on the hunting lodge.`, `Would you like to go south or west?`);
+const library = new Room;
+library.name = `Library`;
+library.description = `Your lungs are instantly filled with dust and you get a tickle in the back of your throat. The air around you is musty, and you can see a thick blanket of dirt on each of the scrolls and texts that have been crammed into bookshelves that completely cover two of the four walls of the library. One scruffy book lies open on the floor; its spine is broken and you can clearly see that a single page has been torn out, leaving tattered scraps of paper on the inside edge. The remaining pages are filled with unusual symbols and long words and you feel like you are reading a whole new language.`;
+library.directions = `There is one door to the west and a rough cut, marble staircase to the east, leading down to the ground floor.`;
 
-const ritualChamber = new Room('Ritual Chamber', `Ascending stairs to the west leading to a corridor on the ground floor. More ascending stairs on the north wall near the northeast corner leading to the kitchen. Tunnel to the east.`, `Would you like to go north, west, or east?`);
+const ritualChamber = new Room;
+ritualChamber.name = `Ritual Chamber`;
+ritualChamber.description = `You immediately feel uncomfortable. This basement area is illuminated by the soft glow of a single candle; its deep red wax cascades down the sides of a brass candlestick and pools at the base. Its flame flickers in a gentle breeze that seemingly comes from nowhere. A strange symbol has been carved into the floorboards under your feet and painted in a blood red colour. A dark granite altar resides near the northern wall, engraved with foreign scribbles. Atop is a bottle of fine wine, an empty goblet and a bunch of plump red grapes. A familiar looking grandfather clock stands against the south wall.`;
+ritualChamber.directions = `There are two sets of ascending stairs. One leading up to a wooden hatch in the north and the other to a door in the east.`;
 
-const tunnel = new Room('Tunnel', `Usually you would think of the light at the end of the tunnel, but this place is so dark that you cannot even see the end. Dread looms.`, `Would you like to continue to the east, or turn back and go west?`);
+const tunnel = new Room;
+tunnel.name = `Tunnel`;
+tunnel.description = `It is pitch black. You can’t see your own feet under you and you have no perspective of how deep the tunnel goes, but you take tentative steps forward. You stretch out both arms either side of you and feel rough cold stone on both palms of your hands. You are suddenly distracted by a crawling sensation over your right hand and then up your arm. Startled, you let go of the wall, stumble, and hurtle to the ground. You are left with a bruised ego and a face only a mother could love, as you kiss the hard concrete floor.`;
+tunnel.directions = `It’s not too late to turn back to the Ritual Sanctum to the north. You can continue south to see what greets you at the end of the tunnel. You sense that freedom may be close.`;
 
-const innerSanctum = new Room('Inner Sanctum', `Massive boss here that looks like he wants to fuck you right up. Good luck. There are stairs leading upwards to the south but this guy really doesn't want you to get to them.`, `Would you like to run, fight, or die?`);
-
-const outside = new Room('Outside', `You made it to safety. Let's not go back in there any time soon.`, `Go, the game has ended.`);
+const innerSanctum = new Room;
+innerSanctum.name = `Inner Sanctum`;
+innerSanctum.description = `You take little notice of the appearance of this room. You know where you want to be next, where you need to be to escape this wretched manor. You see a rope ladder hanging from an opening in the ceiling to the south, a slither of sunlight breaches the surrounding gloom. There’s just one obstacle in your way now, and he doesn’t look happy to see you. A towering, fanged monster of a man shoots you with his oily black stare. There’s no way he is going to oblige and let you pass without a fight. You must decide if you are ready to fight or flee back through the tunnel and better prepare yourself. You are sure however, that killing this nightmarish figure must be the only way out.`;
+innerSanctum.directions = `Are you ready to fight? Or will you flee north through the tunnel?`;
 
 // Linking rooms
 foyer.linkRoom('east', huntingLodge);
-foyer.linkRoom('north', upperFoyer);
 foyer.linkRoom('west', westCorridor);
+foyer.linkRoom('north', upperFoyer);
 
 huntingLodge.linkRoom('west', foyer);
 huntingLodge.linkRoom('north', banquetHall);
@@ -314,26 +330,25 @@ ballroom.linkRoom('east', westCorridor);
 ballroom.linkRoom('north', viewingPlatform);
 ballroom.linkRoom('south', viewingPlatform);
 
+viewingPlatform.linkRoom('east', upperFoyer);
+viewingPlatform.linkRoom('north', ballroom);
+viewingPlatform.linkRoom('south', ballroom);
+
 upperFoyer.linkRoom('south', foyer);
 upperFoyer.linkRoom('east', library);
 upperFoyer.linkRoom('west', viewingPlatform);
 
 library.linkRoom('west', upperFoyer);
-library.linkRoom('south', huntingLodge);
+library.linkRoom('east', huntingLodge);
 
-viewingPlatform.linkRoom('east', upperFoyer);
-viewingPlatform.linkRoom('west', ballroom);
+ritualChamber.linkRoom('north', conservatory);
+ritualChamber.linkRoom('east', kitchen);
+ritualChamber.linkRoom('south', tunnel) // Try and append this to the 'clock' command in the ritual chamber instead
 
-ritualChamber.linkRoom('north', kitchen);
-ritualChamber.linkRoom('west', conservatory);
-ritualChamber.linkRoom('east', tunnel);
+tunnel.linkRoom('north', ritualChamber);
+tunnel.linkRoom('south', innerSanctum);
 
-tunnel.linkRoom('west', ritualChamber);
-tunnel.linkRoom('east', innerSanctum);
-
-innerSanctum.linkRoom('west', tunnel);
-innerSanctum.linkRoom('south', outside);
-
+innerSanctum.linkRoom('north', tunnel);
 
 const player = new Player();
 console.log(`Your current health is ${player.health}`);
