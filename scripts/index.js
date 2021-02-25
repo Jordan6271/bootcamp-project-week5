@@ -85,54 +85,39 @@ class Room {
 }
 
 class Item {
-    constructor(name, description) {
+    constructor(name) {
         this._name = name;
-        this._description = description;
+        this._onUse = "";
     }
 
     get name() {
         return this._name;
     }
 
-    get description() {
-        return this._description;
+    get onUse() {
+        return this._onUse;
     }
 
     set name(value) {
         this._name = value;
     }
 
-    set description(value) {
-        this._description = value;
-    }
-}
-
-class Weapon extends Item {
-    constructor(name, description, power) {
-        super(name, description);
-        this._power = power;
-    }
-}
-
-class Tool extends Item {
-    constructor(name, description, interaction) {
-        super(name, description);
-        this._interaction = interaction;
+    set onUse(value) {
+        this._onUse = value;
     }
 }
 
 class Food extends Item {
-    constructor(name, description, health) {
+    constructor(name, health) {
         super(name, description);
         this._health = health;
     }
 }
 
 class Character {
-    constructor(name, description, conversation, health) {
+    constructor(name, description, health) {
         this._name = name;
         this._description = description;
-        this._conversation = conversation;
         this._health = health;
     }
 
@@ -142,10 +127,6 @@ class Character {
 
     get description() {
         return this._description;
-    }
-
-    get conversation() {
-        return this._conversation;
     }
 
     get health() {
@@ -158,10 +139,6 @@ class Character {
 
     set description(value) {
         this._description = value;
-    }
-
-    set conversation(value) {
-        this._conversation = value;
     }
 
     set health(value) {
@@ -350,9 +327,79 @@ tunnel.linkRoom('south', innerSanctum);
 
 innerSanctum.linkRoom('north', tunnel);
 
+// Item initialisation
+const unlitTorch = new Item;
+unlitTorch.name = `Unlit Torch`;
+
+const litTorch = new Item;
+litTorch.name = `Lit Torch`;
+litTorch.onUse = `You throw your torch onto the lumbering tree. It catches fire instantly and the flames spread rapidly over every branch.`;
+
+const incantationPage = new Item;
+incantationPage.name = `Incantation Page`;
+incantationPage.onUse = `You reach for the incantation page that you found in the Hunting Lodge. You have no idea what you are saying, but you feel compelled to read aloud the scrawlings on the paper. Three shrill screams fill the entire room and the witches melt into the dance floor and vanish.`;
+
+const emptyJar = new Item;
+emptyJar.name = `Empty Jar`;
+emptyJar.onUse = `You fill the empty jar with water from the fountain. You receive Holy Water.`;
+
+const garlic = new Item;
+garlic.name = `Garlic`;
+garlic.onUse = `You notice the Count recoil at the smell of the garlic cloves that were hidden in your jeans pocket. You become more evasive to his attacks.`;
+
+const holyWater = new Item;
+holyWater.name = `Holy Water`;
+holyWater.onUse = `You throw your jar of Holy Water into the face of the fiend. His skin starts to boil and he wretches in agony.`;
+
+const apples = new Item;
+apples.name = `Apples`;
+
+const flute = new Item;
+flute.name = `Flute`;
+flute.onUse = `Ever grateful for your recorder lessons at school, you find the flute you picked up and pretend you know how to play it. Luckily for you, it doesn't take much of a tune to send this lazy hog back to sleep.`;
+
+const mirror = new Item;
+mirror.name = `Mirror`;
+mirror.onUse = `You impressively divert the monster's attention for just enough time to reach the solitary sun beam and redirect it with the mirror, burning a hole in his chest.`;
+
+const clockTime = new Item;
+clockTime.name = `Clock Time`;
+
+const candle = new Item;
+candle.name = `Candle`;
+
+const wine = new Item;
+wine.name = `Wine`;
+
+const grapes = new Item;
+grapes.name = `Grapes`;
+
+// Add items to rooms
+westCorridor.item = unlitTorch;
+
+huntingLodge.item = litTorch;
+huntingLodge.item = incantationPage;
+
+kitchen.item = emptyJar;
+kitchen.item = garlic;
+kitchen.item = apples;
+
+courtyard.item = holyWater;
+
+conservatory.item = apples;
+
+viewingPlatform.item = flute;
+viewingPlatform.item = mirror;
+
+upperFoyer.item = clockTime;
+
+ritualChamber.item = candle;
+ritualChamber.item = wine;
+ritualChamber.item = grapes;
+
+// Initialising player character
 const player = new Player();
 console.log(`Your current health is ${player.health}`);
-
 
 // Executes when game starts
 function startGame() {
