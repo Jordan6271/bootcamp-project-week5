@@ -115,18 +115,13 @@ class Food extends Item {
 }
 
 class Character {
-    constructor(name, description, health) {
+    constructor(name, health) {
         this._name = name;
-        this._description = description;
         this._health = health;
     }
 
     get name() {
         return this._name;
-    }
-
-    get description() {
-        return this._description;
     }
 
     get health() {
@@ -137,18 +132,14 @@ class Character {
         this._name = value;
     }
 
-    set description(value) {
-        this._description = value;
-    }
-
     set health(value) {
         this._health = value;
     }
 }
 
 class Player extends Character {
-    constructor(name, description, conversation, health, inventory) {
-        super(name, description, conversation);
+    constructor(name) {
+        super(name,);
         this._inventory = [];
         this._health = 100;
     }
@@ -185,10 +176,25 @@ class Player extends Character {
 }
 
 class Enemy extends Character {
-    constructor(name, description, conversation, health, power, weakness) {
-        super(name, description, conversation, health);
-        this._power = power;
-        this._weakness = weakness;
+    constructor(name, health, onFight) {
+        super(name, health);
+        this._onFight = onFight;
+        this._weakness = "";
+    }
+    get onFight() {
+        return this._onFight;
+    }
+
+    get weakness() {
+        return this._weakness;
+    }
+
+    set onFight(value) {
+        this._onFight = value;
+    }
+
+    set weakness(value) {
+        this._weakness = value;
     }
 }
 
@@ -397,6 +403,45 @@ ritualChamber.item = candle;
 ritualChamber.item = wine;
 ritualChamber.item = grapes;
 
+// Initialising enemies
+const suitsOfArmour = new Enemy;
+suitsOfArmour.name = `Suits of Armour`;
+suitsOfArmour.health = 50;
+suitsOfArmour.onFight = `You gaze upon the sword and consider the protection it could offer within these unknown walls. You also think you'd look pretty great swinging a sword around. You pull the sword toward you and it is rapidly snatched back by its owner. The silver knight slowly raises one arm and you find yourself following the direction of its outstretched finger, pointing behind you. His rusted friends start to dismount themselves from their positions and slave towards you. You are eventuallly surrounded with no other option. You tuck your head into your shoulders and tackle each suit, one by one. On impact, the rusted plate breaks into pieces and clatters to the floor. When the last soldier falls, you pick yourself off and allow a brief smile. Fortunately for you, this fight didn't require any brain cells. You gain a little experience from the encounter.`;
+
+const hog = new Enemy;
+hog.name = `Hog`;
+hog.health = 50;
+hog.onFight = `You cannot resist the temptation of the feast you have laid your eyes on. You work your way from one end of the table to the other, plunging the fine silver cutlery into various soups, breads, and sponges. The food is extraordinary! Upon reaching the head of the table, and without a second thought, you plunge a fork with a heavy hand into what had looked like a glorious hog roast. A piercing squeal follows as your fork makes connection with the snout of an enormous, seething, mutant pig. You leap backward, only narrowly missed by the dining table which had been upturned in indeniable rage of being woken.`;
+hog.weakness = `flute`;
+
+const witches = new Enemy;
+witches.name = `Witch Trio`;
+witches.health = 50;
+witches.onFight = `Your better nature takes control of you and you find yourself pulling back the drapes to comfort this unseen stranger. Soon after, a hellish cackle penetrates your eardrums from all directions. A dark wispy figure rushes through you. You are forced against your will to turn towards the centre of the room. You can feel the temperature of the room dropping at great speed; it's like your life-force is being drained away. A second entity swoops in from the balcony above and a third ammasses from nowhere. Your eyes adjust in time to see each of the three forms take the shape of a gruesome, wart-riddled witch. The trio smirk wickedly and await your first move.`;
+witches.weakness = `Incantation Page`;
+
+const slumberingAncient = new Enemy;
+slumberingAncient.name = `Slumbering Ancient`;
+slumberingAncient.health = 50;
+slumberingAncient.onFight = `Your presence has been noticed by the resident flora and fauna around you. Engraved ravens caw at the sight of you spoiling this timeless courtyard. The gargantuan oak tree stirs and shakes off its broad branches. A shower of club-shaped leaves rain down over your head and your jaw drops as you see what was previously an ordinary oak transforms. Arms sprout from the sides of the trunk and sections of bark crack and separate, revealing facial features. You have disrupted the eternal rest of a Slumbering Ancient. He's looking to return your body to the ground.`;
+slumberingAncient.weakness = `Lit Torch`;
+
+const countNathrius = new Enemy;
+countNathrius.name = `Count Nathrius`;
+countNathrius.health = 50;
+countNathrius.onFight = `Your challenge is graciously accepted and the Count of the Manor gestures for you to move forward to meet him. His whole persona captivates you and you slip into a trance, becoming a slave to his every will. But his majesty grows weary at how easy it is proving to be to manipulate you. He wants a real challenge. With the flick of a wrist, your body is flung against the concrete floor. You are dazed for only a few seconds before you snap out of your submissive state and are filled with a new sense of confidence. The Count applauds the new you. It's time for the real fight.`;
+countNathrius.weakness = `Garlic`;
+countNathrius.weakness = `Mirror`;
+countNathrius.weakness = `Holy Water`;
+
+// Adding enemies to rooms
+westCorridor.enemy = suitsOfArmour;
+banquetHall.enemy = hog;
+ballroom.enemy = witches;
+courtyard.enemy = slumberingAncient;
+innerSanctum.enemy = countNathrius;
+
 // Initialising player character
 const player = new Player();
 console.log(`Your current health is ${player.health}`);
@@ -412,7 +457,7 @@ function startGame() {
         if (event.key === "Enter") {
             command = document.getElementById('usertext').value.toLowerCase();
             const directions = ["north", "south", "east", "west"];
-            const commands = [`fight`, `take ${item.name}`, `search ${item.name}`, `inventory`];
+            const commands = [`fight`, `inventory`];
 
             if (directions.includes(command)) {
                 currentRoom = currentRoom.move(command);
