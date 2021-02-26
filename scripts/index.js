@@ -129,8 +129,8 @@ class Room {
             displayRoomInfo(currentRoom);
             return this._linkedRooms[direction];
         } else {
-            document.getElementById(`items`).style.display = `block`;
-            document.getElementById(`items`).innerHTML = `You can't go that way.`;
+            showErrors();
+            document.getElementById(`errors`).innerHTML = `You can't go that way.`;
             return this;
         }
     }
@@ -225,25 +225,31 @@ class Player extends Character {
 
     addToInventory(item) {
         if (this._inventory.includes(item.name)) {
-            document.getElementById(`items`).style.display = `block`;
-            document.getElementById(`items`).innerHTML = `You have already picked up the ${item.name.toLowerCase()}.`;
+            showErrors();
+            if (item === clockTime) {
+                document.getElementById(`errors`).innerHTML = `You have already made a note of the time on the clock.`;
+            } else {
+                document.getElementById(`errors`).innerHTML = `You have already picked up the ${item.name.toLowerCase()}.`;
+            }
         } else {
+            showItems();
             this._inventory.push(item.name);
             console.log(this._inventory);
         }
     }
 
     eatFood(item) {
-        document.getElementById(`items`).style.display = `block`;
         if (player.food.includes(item.name)) {
+            showErrors();
             if (item.name === `Wine`) {
-                document.getElementById(`items`).innerHTML = `You have already drunk all of the ${item.name.toLowerCase()}.`;
+                document.getElementById(`errors`).innerHTML = `You have already drunk all of the ${item.name.toLowerCase()}.`;
             } else if (item.name === `Grapes`) { 
-                document.getElementById(`items`).innerHTML = `You have already eaten the ${item.name.toLowerCase()}.`;
+                document.getElementById(`errors`).innerHTML = `You have already eaten the ${item.name.toLowerCase()}.`;
             } else {
-                document.getElementById(`items`).innerHTML = `You have already eaten a ${item.name.toLowerCase()}.`;
+                document.getElementById(`errors`).innerHTML = `You have already eaten a ${item.name.toLowerCase()}.`;
             }
         } else {
+            showItems();
             if (item.name === `Wine`) {
                 document.getElementById(`items`).innerHTML = `You chug a glass of ${item.name.toLowerCase()}, increasing your health by ${item.health}.`;
             } else if (item.name === `Grapes`) {
@@ -473,7 +479,7 @@ mirror.name = `Mirror`;
 mirror.onUse = `You impressively divert the monster's attention for just enough time to reach the solitary sun beam and redirect it with the mirror, burning a hole in his chest.`;
 
 const clockTime = new Item;
-clockTime.name = `Clock Time - 7:06`;
+clockTime.name = `Note of Clock Time`;
 
 const candle = new Item;
 candle.name = `Candle`;
@@ -568,7 +574,19 @@ innerSanctum.enemy = countNathrius;
 const player = new Player();
 console.log(`Your current health is ${player.health}`);
 
-// Add function to handle commands
+// Function to hide errors when interacting with items
+function showItems() {
+    document.getElementById(`errors`).style.display = `none`;
+    document.getElementById(`items`).style.display = `block`;
+}
+
+// Function to hide item messages when reaching an error
+function showErrors() {
+    document.getElementById(`items`).style.display = `none`;
+    document.getElementById(`errors`).style.display = `block`;
+}
+
+// Function to handle commands
 function commandHandler(command) {
     switch(command) {
         default: 
@@ -577,18 +595,17 @@ function commandHandler(command) {
                     case `fire`:
                     case `hearth`:
                         if (player.inventory.includes(unlitTorch.name)) {
+                            document.getElementById(`items`).innerHTML = `You cast the unlit torch into the flames - you now have a lit torch.`;
                             const index = player.inventory.indexOf(unlitTorch.name);
                             player.inventory.splice(index, 1);
                             player.addToInventory(litTorch);
-                            document.getElementById(`items`).style.display = `block`;
-                            document.getElementById(`items`).innerHTML = `You cast the unlit torch into the flames - you now have a lit torch.`;
                         } else {
-                            alert(`You don't have anything to set alight.`);
+                            showErrors();
+                            document.getElementById(`errors`).innerHTML = `You don't have anything to set alight.`;
                         }
                         break;
                     case `bucket`:
                     case `coal`:
-                        document.getElementById(`items`).style.display = `block`;
                         document.getElementById(`items`).innerHTML = `You search the coal bucket and pull out a torn and crumpled piece of paper. It appears to be an incantation of some kind.`;
                         player.addToInventory(incantationPage);
                         break;
@@ -602,12 +619,10 @@ function commandHandler(command) {
             } else if (currentRoom.name === `Kitchen`) {
                 switch(command) {
                     case `jar`:
-                        document.getElementById(`items`).style.display = `block`;
                         document.getElementById(`items`).innerHTML = `You pick up an empty jar.`;
                         player.addToInventory(emptyJar);
                         break;
                     case `cupboard`:
-                        document.getElementById(`items`).style.display = `block`;
                         document.getElementById(`items`).innerHTML = `You find a string of garlic cloves.`;
                         player.addToInventory(garlic);
                         break;
@@ -621,13 +636,12 @@ function commandHandler(command) {
                     case `fountain`:
                         if (player.kills.includes(slumberingAncient.name)) {
                             if (player.inventory.includes(emptyJar.name)) {
+                                document.getElementById(`items`).innerHTML = `${emptyJar.onUse}`;
                                 const index = player.inventory.indexOf(emptyJar.name);
                                 player.inventory.splice(index, 1);
                                 player.addToInventory(holyWater);
-                                document.getElementById(`items`).style.display = `block`;
-                                document.getElementById(`items`).innerHTML = `${emptyJar.onUse}`;
                             } else {
-                                document.getElementById(`errors`).style.display = `block`;
+                                showErrors();
                                 document.getElementById(`errors`).innerHTML = `You don't have anything to store the water in.`;
                             }
                         } else {
@@ -653,7 +667,6 @@ function commandHandler(command) {
                         break;
                     case `torch`:
                     case `unlit torch`:
-                        document.getElementById(`items`).style.display = `block`;
                         document.getElementById(`items`).innerHTML = `You pick up an unlit torch.`;
                         player.addToInventory(unlitTorch);
                         break;
@@ -667,12 +680,10 @@ function commandHandler(command) {
             } else if (currentRoom.name === `Viewing Platform`) {
                 switch(command) {
                     case `flute`:
-                        document.getElementById(`items`).style.display = `block`;
                         document.getElementById(`items`).innerHTML = `You pick up a flute.`;
                         player.addToInventory(flute);
                         break;
                     case `mirror`:
-                        document.getElementById(`items`).style.display = `block`;
                         document.getElementById(`items`).innerHTML = `You pick up a mirror.`;
                         player.addToInventory(mirror);
                         break;
@@ -680,7 +691,7 @@ function commandHandler(command) {
             } else if (currentRoom.name === `Upper Foyer`) {
                 switch(command) {
                     case `clock`:
-                        document.getElementById(`items`).style.display = `block`;
+                    case `painting`:
                         document.getElementById(`items`).innerHTML = `You note down the time on the Clock in the painting. It's 7:06.`;
                         player.addToInventory(clockTime);
                         break;   
@@ -688,7 +699,6 @@ function commandHandler(command) {
             } else if (currentRoom.name === `Ritual Chamber`) {
                 switch(command) {
                     case `candle`:
-                        document.getElementById(`items`).style.display = `block`;
                         document.getElementById(`items`).innerHTML = `You pick up a candle.`;
                         player.addToInventory(candle);
                         break; 
@@ -699,13 +709,15 @@ function commandHandler(command) {
                         player.eatFood(grapes);
                         break;
                     case `clock`:
-                        document.getElementById(`items`).style.display = `block`;
                         if (player.inventory.includes(clockTime.name)) {
+                            showItems();
                             document.getElementById(`items`).innerHTML = `You inspect the clock and notice a draft from the wall behind it. You recall seeing this clock in a painting on the Upper Foyer and move its hands to replicate the time shown in the picture. The clock's chimes strike once and its door swings open. The floor rumbles as the wall behind the clock opens to reveal a dark tunnel ahead.`;
                             player._kills.push(`Clock`);
                             console.log(player._kills);
+                            break;
                         } else {
-                            document.getElementById(`items`).innerHTML = `This clock looks familiar, as if you have seen it somewhere recently. You notice a draft from the wall behind it but feel you might be missing something.`;
+                            showErrors();
+                            document.getElementById(`errors`).innerHTML = `This clock looks familiar, as if you have seen it somewhere recently. You notice a draft from the wall behind it but feel you might be missing something.`;
                         }
                         break;
                 }
@@ -719,7 +731,8 @@ function commandHandler(command) {
                         break;
                 }
             } else {
-                alert(`You can't do that here.`);
+                showErrors();
+                document.getElementById(`errors`).innerHTML = `You can't do that here.`;
             }   
             break;
         case `inventory`:
@@ -738,14 +751,15 @@ function startGame() {
         if (event.key === `Enter`) {
             command = document.getElementById(`usertext`).value.toLowerCase();
             const directions = [`north`, `south`, `east`, `west`];
-            const commands = [`inventory`, `hearth`, `bucket`, `coal`, `eat`, `jar`, `cupboard`, `apples`, `apple`, `fountain`, `tree`, `sword`, `knight`, `torch`, `unlit torch`, `curtain`, `flute`, `mirror`, `clock`, `candle`, `wine`, `grapes`, `fight`, `flee`];
+            const commands = [`inventory`, `fire`, `hearth`, `bucket`, `coal`, `eat`, `jar`, `cupboard`, `apples`, `apple`, `fountain`, `tree`, `sword`, `knight`, `torch`, `unlit torch`, `curtain`, `flute`, `mirror`, `clock`, `painting`, `candle`, `wine`, `grapes`, `fight`, `flee`];
 
             if (directions.includes(command)) {
                 currentRoom = currentRoom.move(command);
             } else if (commands.includes(command)) {
                 commandHandler(command, currentRoom.character);
             } else {
-                alert(`You can't do that.`);
+                showErrors();
+                document.getElementById(`errors`).innerHTML = `You can't do that.`;
             }
             document.getElementById(`usertext`).value = ``;
         }
