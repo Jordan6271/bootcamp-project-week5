@@ -1,0 +1,9 @@
+#items, #errors {
+    display: none;
+    color: green;
+    font-weight: bold;
+}
+
+#errors {
+    color: red;
+}
