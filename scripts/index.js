@@ -249,13 +249,13 @@ class Player extends Character {
                 document.getElementById(`errors`).innerHTML = `You have already eaten a ${item.name.toLowerCase()}.`;
             }
         } else {
-            showItems();
+            showHealth();
             if (item.name === `Wine`) {
-                document.getElementById(`items`).innerHTML = `You chug a glass of ${item.name.toLowerCase()}, increasing your health by ${item.health}.`;
+                document.getElementById(`health`).innerHTML = `You chug a glass of ${item.name.toLowerCase()}, increasing your health by ${item.health}.`;
             } else if (item.name === `Grapes`) {
-                document.getElementById(`items`).innerHTML = `You eat a whole bunch of ${item.name.toLowerCase()}, increasing your health by ${item.health}.`;
+                document.getElementById(`health`).innerHTML = `You eat a whole bunch of ${item.name.toLowerCase()}, increasing your health by ${item.health}.`;
             } else {
-                document.getElementById(`items`).innerHTML = `You eat a ${item.name.toLowerCase()}, increasing your health by ${item.health}.`;
+                document.getElementById(`health`).innerHTML = `You eat a ${item.name.toLowerCase()}, increasing your health by ${item.health}.`;
             }
             this._food.push(item.name);
             this._health = this._health + item.health;
@@ -574,16 +574,32 @@ innerSanctum.enemy = countNathrius;
 const player = new Player();
 console.log(`Your current health is ${player.health}`);
 
+// Function to show next section of rules before the game starts
+function showNextSection(current, next) {
+    document.getElementById(`rules-title`).style.display = `none`;
+    document.getElementById(current).style.display = `none`;
+    document.getElementById(next).style.display = `block`;
+}
+
+// Function to hide item messages when reaching an error or losing health
+function showErrors() {
+    document.getElementById(`items`).style.display = `none`;
+    document.getElementById(`health`).style.display = `none`;
+    document.getElementById(`errors`).style.display = `block`;
+}
+
 // Function to hide errors when interacting with items
 function showItems() {
     document.getElementById(`errors`).style.display = `none`;
+    document.getElementById(`health`).style.display = `none`;
     document.getElementById(`items`).style.display = `block`;
 }
 
-// Function to hide item messages when reaching an error
-function showErrors() {
+// Function to hide errors when gaining health
+function showHealth() {
+    document.getElementById(`errors`).style.display = `none`;
     document.getElementById(`items`).style.display = `none`;
-    document.getElementById(`errors`).style.display = `block`;
+    document.getElementById(`health`).style.display = `block`;
 }
 
 // Function to handle commands
@@ -742,8 +758,10 @@ function commandHandler(command) {
 
 // Executes when game starts
 function startGame() {
+    document.getElementById(`rules`).style.display = `none`;
+    document.getElementById(`game-details`).style.display = `block`;
     currentRoom = foyer;
-    document.getElementById(`title`).innerHTML = `<h1>Where Am I?</h1>`
+    document.getElementById(`title`).innerHTML = `<h1>Where Am I?</h1>`;
     document.getElementById(`description`).innerHTML = `You wake up in a daze. You are disoriented and dehydrated. All you remember is the raging storm of wind and rain that started without warning when you were walking home from work last night. You conclude that you must have found your way here, for shelter from the bitter cold, and passed out due to exhaustion. You can't hear the lashing rain anymore, only the sound of silence. You pick yourself up off the ground to try the front door, hoping you can sneak away before anyone notices your intrusion. Your hand reaches for the brass handle of the threatening doors to the outside world when you hear the click of a metal latch. You tremble, searching erratically for your mobile phone, to no avail. You are locked inside. If the front door is no longer an option, there must be another way to...</p>`;
     document.getElementById(`buttonarea`).innerHTML = `<input id="foyerButton" type="button" value="Escape from the Manor" class="btn text-center" onclick="displayRoomInfo(foyer);"/>`;
 
