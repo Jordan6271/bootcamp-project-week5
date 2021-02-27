@@ -1,9 +1,19 @@
-#items, #errors {
+#game-details, #controls, #gameplay, #items, #errors, #health {
     display: none;
-    color: green;
+}
+
+.error-text, .item-text, .health-text {
     font-weight: bold;
 }
 
-#errors {
+.error-text {
     color: red;
+}
+
+.item-text {
+    color: blue;
+}
+
+.health-text {
+    color: green;
 }

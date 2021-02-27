@@ -6,7 +6,7 @@
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <!--My CSS-->
-    <link rel="stylesheet" type="text/css" href="/styles/styles.css">
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
   </head>
   <body>
     <div class="container">
@@ -15,30 +15,65 @@
           <div class="col">
             <h1 class="text-center">Escape From The Manor</h1>
             <br />
-            <h2 class="text-center">Rules of the Game:</h2>
+            <h2 class="text-center" id="rules-title">Rules of the Game</h2>
             <br />
           </div>
         </div>
-        <div id="details">
-            <!--Intro Content-->
-            <div class="justify-content-center mx-auto">
-                <p id="errors" class="text-center"></p>
-                <p id="items" class="text-center"></p>
-                <p id="location" class="text-center"></p>
-                <p id="description" class="text-center">The rules are...</p>
-                <p id="directions" class="text-center"></p><br />
-                <div id="buttonarea">
-                  <input id="startButton" type="button" value="Start Game" class="btn text-center" onclick="startGame()"/>
-                </div>
-                <form id="gameform">
-                  <div id="userentry">
-                  </div>
-                </form>
+        <div id="rules">
+          <!--Intro Section-->
+          <div class="justify-content-center mx-auto">
+            <div id="goal">
+              <h3 class="text-center">Goal</h3>
+              <p class="text-center">The aim of the game is to find your way safely out of the manor. There will be several obstacles in your way to freedom, some more challenging than others. You must investigate the rooms of the manor to find helpful hints and tools which you can use to make it easier to succeed in any trials you might face. There are few guaranteed victories, and if you choose to begin a fight unprepared, you may fail, and must restart the game to try again.</p>
+              <div id="showControls" class="justify-content-center">
+                <input id="showControlsButton" type="button" value="Show Controls" class="btn text-center" onclick="showNextSection('goal', 'controls')"/>
+              </div>
             </div>
+            <div id="controls">
+              <h3 class="text-center">Controls</h3>
+              <p class="text-center">In any given room, there may be objects that you can interact with. To interact with an item, simply type the name of that item. For example, if a room was described to have a desk with a drawer, you should either type the word "desk" or "drawer" to interact with the object. Do not type "open drawer" or "search desk".</p>
+              <p class="text-center">If you try to interact with an object that does not have any interactions associated with it, the error message <span class="error-text">"You can't do that."</span> will display.</p>
+              <p class="text-center">The directions you can move will be indicated within the description of each room. To move to a new room, type "north", "east", "south", or "west". If you type a direction that is not applicable to your current room, the error message <span class="error-text">"You can't go that way."</span> will display.</p>
+              <p class="text-center">Commands that you type are not case sensitive.</p>
+              <div id="showGameplay">
+                <input id="showGameplayButton" type="button" value="Show Gameplay" class="btn text-center" onclick="showNextSection('controls', 'gameplay')"/>
+              </div>
+            </div>
+            <div id="gameplay">
+              <h3 class="text-center">Game Play</h3>
+              <p class="text-center">When interacting with an object, you may receive an item. <span class="item-text">A message will be displayed in blue</span> confirming an item has either been used immediately or placed in your inventory. Your inventory can be viewed in the bottom right of the screen.</p>
+              <p class="text-center">Two items may interact with one another. If you type the name of an item in your inventory, and you are in the room with an object that can be combined with it, you will receive a new item, and a message will be displayed to this effect. This also works if you type the name of an object in a room which is associated with one in your inventory.</p>
+              <p class="text-center">If an item in your inventory can be used during a fight, this will automatically occur.</p>
+              <p class="text-center">Your health will increase or decrease depending on certain interactions you make, and your performance in different scenarios. This will be indicated by <span class="health-text">green text if you gain health</span>, or <span class="error-text">red text if you lose health.</span> If you perform poorly and start a fight unprepared, you may fail. In this case, you must restart the game to try again.</p>
+              <h3 class="text-center">Good Luck!</h3>
+              <div id="startGame">
+              <input id="startGameButton" type="button" value="Start Game" class="btn text-center" onclick="startGame()"/>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      <div id="game-details">
+          <!--Game Area-->
+          <div class="justify-content-center mx-auto">
+              <p id="errors" class="text-center error-text"></p>
+              <p id="items" class="text-center item-text"></p>
+              <p id="health" class="text-center health-text"></p>
+              <p id="location" class="text-center"></p>
+              <p id="description" class="text-center"></p>
+              <p id="directions" class="text-center"></p><br />
+              <div id="buttonarea">
+                <input id="startButton" type="button" value="Start Game" class="btn text-center" onclick="startGame()"/>
+              </div>
+              <form id="gameform">
+                <div id="userentry">
+                </div>
+              </form>
+            </div>
+      </div>
     </div>
-    <!-- link to external JavaScript-->
-    <script src="scripts/index.js"></script>
+  </div>
+  <!-- link to external JavaScript-->
+  <script src="scripts/index.js"></script>
   </body>
 </html>
