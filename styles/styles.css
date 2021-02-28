@@ -1,4 +1,4 @@
-#game-details, #controls, #gameplay, #items, #errors, #health {
+#game-details, #controls, #gameplay, #items, #errors, #health, #userinput {
     display: none;
 }
 
