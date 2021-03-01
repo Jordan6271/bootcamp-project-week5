@@ -311,6 +311,9 @@ class Player extends Character {
             showErrors();
             document.getElementById(`errors`).innerHTML = `You have already slain this enemy.`;
         } else {
+            document.getElementById(`errors`).style.display = `none`;
+            document.getElementById(`health`).style.display = `none`;
+            document.getElementById(`items`).style.display = `none`;
             document.getElementById(`static-content`).style.display = `none`;
             document.getElementById(`location`).style.display = `none`;
             document.getElementById(`description`).innerHTML = `${enemy.description}`;
