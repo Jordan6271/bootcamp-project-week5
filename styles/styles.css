@@ -12,7 +12,7 @@ body {
     font-size: 1.05rem;
 }
 
-#title, h3 {
+h1, h2, h3 {
     font-family: LifeCraft, sans-serif;
     font-size: 3rem;
 }
