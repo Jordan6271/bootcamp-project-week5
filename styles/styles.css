@@ -11,7 +11,11 @@ body {
     font-weight: bold;
 }
 
-#game-details, #controls, #gameplay, #items, #errors, #health, #userinput, #static-content {
+#title, h3 {
+    font-family: LifeCraft, sans-serif;
+}
+
+#controls, #gameplay, #game-details {
     display: none;
 }
 
@@ -42,6 +46,12 @@ body {
     color: #257377;
 }
 
+#userinput, #health-area, #inventory-area {
+    padding-bottom: 10px;
+    float: left;
+    margin-left: 10px;
+}
+
 #usertext, #usertext:focus {
     background-color: rgba(255, 255, 255, 0.5);
     border: 2px solid #257377;
@@ -52,13 +62,9 @@ body {
     text-indent: 5px;
 }
 
-#static-content div {
-    padding-bottom: 10px;
-    float: left;
-}
-
-#userinput, #health-area, #inventory-area {
-    margin-left: 10px;
+#inventory-area {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding-top: 10px;
 }
 
 .error-text, .item-text, .health-text {
@@ -103,10 +109,10 @@ body {
     #usertext {
         margin-top: 10px;
     }
-    #userinput {
-        order: 2;
-    }
-    #health-area {
-        order: 1;
-    }
+}
+
+/* Fonts */
+@font-face {
+    font-family: LifeCraft; 
+    src: url(../fonts/LifeCraft.ttf);
 }

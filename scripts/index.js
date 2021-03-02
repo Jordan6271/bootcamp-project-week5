@@ -321,9 +321,9 @@ class Player extends Character {
 
     updateHealth() {
         if (this._health >= 100) {
-            document.getElementById(`health-area`).innerHTML = `Current health:<br /><div class="health-text col-12">${this._health}</div>`;
+            document.getElementById(`health-area`).innerHTML = `Current health:<br /><div class="health-text w-100">${this._health}</div>`;
         } else {
-            document.getElementById(`health-area`).innerHTML = `Current health:<br /><div class="error-text col-12">${this._health}</div>`;
+            document.getElementById(`health-area`).innerHTML = `Current health:<br /><div class="error-text w-100">${this._health}</div>`;
         }
         
     }
@@ -336,7 +336,9 @@ class Player extends Character {
             document.getElementById(`errors`).style.display = `none`;
             document.getElementById(`health`).style.display = `none`;
             document.getElementById(`items`).style.display = `none`;
-            document.getElementById(`static-content`).style.display = `none`;
+            document.getElementById(`health-area`).style.display = `none`;
+            document.getElementById(`inventory-area`).style.display = `none`;
+            document.getElementById(`userinput`).style.display = `none`;
             document.getElementById(`location`).style.display = `none`;
             document.getElementById(`description`).innerHTML = `${enemy.description}`;
             document.getElementById(`directions`).style.display = `none`;
@@ -507,7 +509,8 @@ function displayRoomInfo(room) {
     document.getElementById(`description`).innerHTML = `${room.description}`;
     document.getElementById(`directions`).innerHTML = `${room.directions}`;
     document.getElementById(`buttonarea`).style.display = `none`;
-    document.getElementById(`static-content`).style.display = `inline-block`;
+    document.getElementById(`health-area`).style.display = `inline-block`;
+    document.getElementById(`inventory-area`).style.display = `inline-block`;
     document.getElementById(`userinput`).style.display = `inline-block`;
     document.getElementById(`usertext`).focus();
 }
@@ -956,7 +959,9 @@ function backToRoom(enemy) {
     document.getElementById(`directions`).style.display = `block`;
     document.getElementById(`directions`).innerHTML = `${currentRoom.directions}`;
     document.getElementById(`buttonarea`).style.display = `none`;
-    document.getElementById(`static-content`).style.display = `inline-block`;
+    document.getElementById(`userinput`).style.display = `inline-block`;
+    document.getElementById(`health-area`).style.display = `inline-block`;
+    document.getElementById(`inventory-area`).style.display = `inline-block`;
     if (player._kills.includes(`${enemy.name} with the ${enemy.weakness.name}`)) {
         document.getElementById(`description`).innerHTML = `${enemy.easyFight}`;
     } else {
@@ -970,8 +975,9 @@ function clockUnlock() {
     document.getElementById(`location`).style.display = `block`;
     document.getElementById(`description`).style.display = `block`;
     document.getElementById(`buttonarea`).style.display = `none`;
-    document.getElementById(`static-content`).style.display = `inline-block`;
     document.getElementById(`userinput`).style.display = `inline-block`;
+    document.getElementById(`health-area`).style.display = `inline-block`;
+    document.getElementById(`inventory-area`).style.display = `inline-block`;
     document.getElementById(`usertext`).focus();
     document.getElementById(`description`).innerHTML = `${currentRoom.description}`;
     document.getElementById(`directions`).innerHTML = `There are two sets of ascending stairs. One leading up to a wooden hatch 
@@ -1192,7 +1198,9 @@ function commandHandler(command) {
                                     The floor rumbles as the wall behind the clock opens to reveal a dark tunnel ahead.`;
                                 document.getElementById(`buttonarea`).style.display=`block`;
                                 document.getElementById(`buttonarea`).innerHTML = `<input id="clockUnlockButton" type="button" value="Continue" class="btn text-center" onclick="clockUnlock();"/>`;
-                                document.getElementById(`static-content`).style.display = `none`;
+                                document.getElementById(`userinput`).style.display = `none`;
+                                document.getElementById(`health-area`).style.display = `none`;
+                                document.getElementById(`inventory-area`).style.display = `none`;
                                 player._kills.push(`Clock`);
                             }
                         } else {
@@ -1238,6 +1246,9 @@ function startGame() {
     document.getElementById(`buttonarea`).innerHTML = `<input id="foyerButton" type="button" value="Escape from the Manor" class="btn text-center" onclick="displayRoomInfo(foyer);"/>`;
     player.updateHealth();
     document.getElementById(`inventory-area`).innerHTML = `<p>You have nothing in your inventory yet.</p>`;
+    document.getElementById(`userinput`).style.display = `none`;
+    document.getElementById(`health-area`).style.display = `none`;
+    document.getElementById(`inventory-area`).style.display = `none`;
     document.addEventListener(`keydown`, function (event) {
         if (event.key === `Enter`) {
             command = document.getElementById(`usertext`).value.toLowerCase();
