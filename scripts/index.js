@@ -286,7 +286,7 @@ class Player extends Character {
             document.getElementById(`inventory-area`).innerHTML = `<p>Your inventory contains:`;
             var i;
             for (i = 0; i < player.inventory.length; i++) {
-                document.getElementById(`inventory-area`).innerHTML += `<li>${player.inventory[i]}</li>`;
+                document.getElementById(`inventory-area`).innerHTML += `<li class="item-text">${player.inventory[i]}</li>`;
             }
         }   
     }
@@ -320,7 +320,12 @@ class Player extends Character {
     }
 
     updateHealth() {
-        document.getElementById(`health-text`).innerHTML = `Current health:<br />${this._health}`;
+        if (this._health >= 100) {
+            document.getElementById(`health-area`).innerHTML = `Current health:<br /><div class="health-text col-12">${this._health}</div>`;
+        } else {
+            document.getElementById(`health-area`).innerHTML = `Current health:<br /><div class="error-text col-12">${this._health}</div>`;
+        }
+        
     }
 
     startFight(enemy) {
@@ -337,7 +342,6 @@ class Player extends Character {
             document.getElementById(`directions`).style.display = `none`;
             document.getElementById(`buttonarea`).style.display = `block`;
             document.getElementById(`buttonarea`).innerHTML = `<input id="fightButton" type="button" value="Fight Outcome" class="btn text-center" onclick="player.fight(${enemy.name.toLowerCase()});"/>`;
-            document.getElementById(`usertext`).style.display = `none`;
         }   
     }
 
@@ -374,7 +378,7 @@ class Player extends Character {
             } else if (this._inventory.includes(holyWater.name) && this._inventory.includes(mirror.name) && this._inventory.includes(garlic.name)) {
                 document.getElementById(`description`).innerHTML = `${holyWater.onUse}</p><p>${mirror.onUse}</p><p>${garlic.onUse}`;
             } else {
-                document.getElementById(`description`).innerHTML = `How did you even win this? Hacker.`;
+                document.getElementById(`description`).style.display = `none`;
             }
             if (this._health > 0) {
                 this.killEnemy(enemy);
@@ -503,9 +507,9 @@ function displayRoomInfo(room) {
     document.getElementById(`description`).innerHTML = `${room.description}`;
     document.getElementById(`directions`).innerHTML = `${room.directions}`;
     document.getElementById(`buttonarea`).style.display = `none`;
-    document.getElementById(`userinput`).style.display = `block`;
-    document.getElementById(`usertext`).focus();
     document.getElementById(`static-content`).style.display = `inline-block`;
+    document.getElementById(`userinput`).style.display = `inline-block`;
+    document.getElementById(`usertext`).focus();
 }
 
 // Room descriptions
@@ -518,7 +522,7 @@ foyer.description = `This grand entrance hall is spacious but sombre in appearan
     upper foyer; it is difficult to see the subject of either from this distance. You feel alone in this almost bare expanse.`;
 foyer.directions = `Two doors are located on the ground floor, one in the east wall and one to the west. To the north, a grand 
     staircase ascends to the first floor.`;
-foyer.background = `url('images/foyer.jpg') no-repeat`;
+foyer.background = `url('images/foyer.jpg') no-repeat center`;
 
 const huntingLodge = new Room;
 huntingLodge.name = `Hunting Lodge`;
@@ -528,7 +532,7 @@ huntingLodge.description = `This room is small and the air is warm. You are brie
     bearskin rug covers the majority of the creaky wooden floorboards. The fire cannot quash the chills that run down your spine.`;
 huntingLodge.directions = `There are two doors in this room, one to the north and one to the west. To the east, a rough cut, marble 
     staircase leads up to the first floor.`;
-huntingLodge.background = `url('images/hunting-lodge.jpg') no-repeat`;
+huntingLodge.background = `url('images/hunting-lodge.jpg') no-repeat center`;
 
 const banquetHall = new Room;
 banquetHall.name = `Banquet Hall`;
@@ -538,7 +542,7 @@ banquetHall.description = `An enormous dinner table resides in the centre of thi
     head of the main table is an irresistible looking hog roast. You feel hungry and contemplate whether to eat.`;
 banquetHall.directions = `There are three doors in this room, a small door to the north and one to the south. To the west, large glass 
     doors appear to lead to an outside area.`;
-banquetHall.background = `url('images/banquet-hall.jpg') no-repeat`;
+banquetHall.background = `url('images/banquet-hall.jpg') no-repeat center`;
 
 const kitchen = new Room;
 kitchen.name = `Kitchen`;
@@ -547,7 +551,7 @@ kitchen.description = `There is not much space to move. A tiny stove is cluttere
     shelves hold a few empty jars. The door of a cupboard swings eerily on its last remaining hinge. A draft must be coming from somewhere.`;
 kitchen.directions = `There are two doors in this room. A small door to the south and one to the west which appears to lead to a 
     descending staircase.`;
-kitchen.background = `url('images/kitchen.jpg') no-repeat`;
+kitchen.background = `url('images/kitchen.jpg') no-repeat center`;
 
 const courtyard = new Room;
 courtyard.name = `Courtyard`;
@@ -557,7 +561,7 @@ courtyard.description = `The air is fresh and you breathe easier. Your attention
     sturdy. They sway with an almost human-like motion.`;
 courtyard.directions = `Two doors lead back into the manor. Large glass doors inhabit the wall to the east and a smaller glass door to 
     a conservatory can be seen to the west.`;
-courtyard.background = `url('images/courtyard.jpg') no-repeat`;
+courtyard.background = `url('images/courtyard.jpg') no-repeat center`;
 
 const conservatory = new Room;
 conservatory.name = `Conservatory`;
@@ -567,7 +571,7 @@ conservatory.description = `The room is softly lit with natural light piercing t
     of hope that you are not the only person in the manor anymore.`;
 conservatory.directions = `There are three doors in this room. A wooden hatch in the north appears to lead to a descending staircase, a small 
     glass door to the east appears to lead to an outdoor area, and a door to the south.`;
-conservatory.background = `url('images/conservatory.jpg') no-repeat`;
+conservatory.background = `url('images/conservatory.jpg') no-repeat center`;
 
 const westCorridor = new Room;
 westCorridor.name = `West Corridor`;
@@ -577,7 +581,7 @@ westCorridor.description = `Two regimental lines of rusted suits of armour stand
     several unlit torches in holders on the eastern wall visible.`;
 westCorridor.directions = `There are three doors in the corridor. To the north, a small glass door. There are two regular doors either 
     side of you. One to the east and one directly opposite, to the west.`;
-westCorridor.background = `url('images/west-corridor.jpg') no-repeat`;
+westCorridor.background = `url('images/west-corridor.jpg') no-repeat center`;
 
 const ballroom = new Room;
 ballroom.name = `Ballroom`;
@@ -588,7 +592,7 @@ ballroom.description = `Soft music plays from a gramophone in one corner of the 
     ceiling down to the floor. Someone sounds in distress. Perhaps they are looking for an exit too?`;
 ballroom.directions = `There is just one door in this room, to the east. There are two spiralled stairways that rise up to a spectacular 
     balcony above the ballroom on the north and south walls.`;
-ballroom.background = `url('images/ballroom.jpg') no-repeat`;
+ballroom.background = `url('images/ballroom.jpg') no-repeat center`;
 
 const viewingPlatform = new Room;
 viewingPlatform.name = `Viewing Platform`;
@@ -600,7 +604,7 @@ viewingPlatform.description = `Waist-high silver railings run the length of this
     frame and smooth reflective surface.`;
 viewingPlatform.directions = `There are two spiralled stairways that lead back down to the Ballroom floor, one to the north and one to the 
     south. There is also a door to the east.`;
-viewingPlatform.background = `url('images/viewing-platform.jpg') no-repeat`;
+viewingPlatform.background = `url('images/viewing-platform.jpg') no-repeat center`;
 
 const upperFoyer = new Room;
 upperFoyer.name = `Upper Foyer`;
@@ -611,7 +615,7 @@ upperFoyer.description = `The space above the main Foyer seems to serve the pure
     it appears to be showing an oddly specific time.`;
 upperFoyer.directions = `This empty hallway leads to two rooms, one to the east and one to the west. The grand staircase to the south 
     leads back down to the main foyer.`;
-upperFoyer.background = `url('images/upper-foyer.jpg') no-repeat`;
+upperFoyer.background = `url('images/upper-foyer.jpg') no-repeat center`;
 
 const library = new Room;
 library.name = `Library`;
@@ -621,7 +625,7 @@ library.description = `Your lungs are instantly filled with dust and you get a t
     single page has been torn out, leaving tattered scraps of paper on the inside edge. The remaining pages are filled with unusual symbols 
     and long words and you feel like you are reading a whole new language.`;
 library.directions = `There is one door to the west and a rough cut, marble staircase to the east, leading down to the ground floor.`;
-library.background = `url('images/library.jpg') no-repeat`;
+library.background = `url('images/library.jpg') no-repeat center`;
 
 const ritualChamber = new Room;
 ritualChamber.name = `Ritual Chamber`;
@@ -632,7 +636,7 @@ ritualChamber.description = `You immediately feel uncomfortable. This basement a
     a bunch of plump red grapes. A familiar looking grandfather clock stands against the south wall.`;
 ritualChamber.directions = `There are two sets of ascending stairs. One leading up to a wooden hatch in the north and the other to a door 
     in the east.`;
-ritualChamber.background = `url('images/ritual-chamber.jpg') no-repeat`;
+ritualChamber.background = `url('images/ritual-chamber.jpg') no-repeat center`;
 
 const tunnel = new Room;
 tunnel.name = `Tunnel`;
@@ -643,7 +647,7 @@ tunnel.description = `It is pitch black. You can’t see your own feet under you
     concrete floor.`;
 tunnel.directions = `You may wish to return to Ritual Sanctum to the north. There is another exit to the south. In this tunnel, you sense 
     that freedom may be close.`;
-tunnel.background = `url('images/tunnel.jpg') no-repeat`;
+tunnel.background = `url('images/tunnel.jpg') no-repeat center`;
 
 const innerSanctum = new Room;
 innerSanctum.name = `Inner Sanctum`;
@@ -654,7 +658,7 @@ innerSanctum.description = `You take little notice of the appearance of this roo
     decide if you are ready to fight or flee back through the tunnel and better prepare yourself. You are sure however, that killing this 
     nightmarish figure must be the only way out.`;
 innerSanctum.directions = `Are you ready to fight? Or will you flee north through the tunnel?`;
-innerSanctum.background = `url('images/inner-sanctum.jpg') no-repeat`;
+innerSanctum.background = `url('images/inner-sanctum.jpg') no-repeat center`;
 
 // Linking rooms
 foyer.linkRoom(`east`, huntingLodge);
@@ -952,8 +956,7 @@ function backToRoom(enemy) {
     document.getElementById(`directions`).style.display = `block`;
     document.getElementById(`directions`).innerHTML = `${currentRoom.directions}`;
     document.getElementById(`buttonarea`).style.display = `none`;
-    document.getElementById(`usertext`).style.display = `inline-block`;
-    document.getElementById(`static-content`).style.display = `block`;
+    document.getElementById(`static-content`).style.display = `inline-block`;
     if (player._kills.includes(`${enemy.name} with the ${enemy.weakness.name}`)) {
         document.getElementById(`description`).innerHTML = `${enemy.easyFight}`;
     } else {
@@ -967,9 +970,8 @@ function clockUnlock() {
     document.getElementById(`location`).style.display = `block`;
     document.getElementById(`description`).style.display = `block`;
     document.getElementById(`buttonarea`).style.display = `none`;
-    document.getElementById(`static-content`).style.display = `block`;
-    document.getElementById(`usertext`).style.display = `inline-block`;
-
+    document.getElementById(`static-content`).style.display = `inline-block`;
+    document.getElementById(`userinput`).style.display = `inline-block`;
     document.getElementById(`usertext`).focus();
     document.getElementById(`description`).innerHTML = `${currentRoom.description}`;
     document.getElementById(`directions`).innerHTML = `There are two sets of ascending stairs. One leading up to a wooden hatch 
@@ -1006,10 +1008,10 @@ function loseGame(enemy) {
 } 
 
 function winGame() {
-    document.body.style.background = `url('images/outro.jpg') no-repeat`;
+    document.body.style.background = `url('images/outro.jpg') no-repeat center`;
     document.body.style.backgroundSize = `cover`;
     document.getElementById(`title`).style.display = `none`;
-    document.getElementById(`location`).innerHTML = `${vampire.afterFight}</p><p>Congratulations, you have escaped from the manor!`;
+    document.getElementById(`location`).innerHTML = `<br /><br />${vampire.afterFight}</p><p>Congratulations, you have escaped from the manor!`;
     document.getElementById(`description`).style.display = `none`;
     document.getElementById(`directions`).style.display = `none`;
     document.getElementById(`buttonarea`).style.display = `block`;
@@ -1190,7 +1192,6 @@ function commandHandler(command) {
                                     The floor rumbles as the wall behind the clock opens to reveal a dark tunnel ahead.`;
                                 document.getElementById(`buttonarea`).style.display=`block`;
                                 document.getElementById(`buttonarea`).innerHTML = `<input id="clockUnlockButton" type="button" value="Continue" class="btn text-center" onclick="clockUnlock();"/>`;
-                                document.getElementById(`usertext`).style.display = `none`;
                                 document.getElementById(`static-content`).style.display = `none`;
                                 player._kills.push(`Clock`);
                             }
@@ -1223,8 +1224,6 @@ function commandHandler(command) {
 
 // Executes when game starts
 function startGame() {
-    document.body.style.background = `url('images/intro.jpg') no-repeat`;
-    document.body.style.backgroundSize = `cover`;
     document.getElementById(`rules`).style.display = `none`;
     document.getElementById(`game-details`).style.display = `block`;
     currentRoom = foyer;
