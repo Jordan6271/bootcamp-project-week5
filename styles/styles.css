@@ -1,5 +1,70 @@
-#game-details, #controls, #gameplay, #items, #errors, #health, #userinput, #static-content {
+body, html {
+    min-height: 100%;
+    background-size: cover;
+}
+
+body {
+    background-color: #257377;
+    background-image: url('../images/intro.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    font-weight: bold;
+}
+
+#title, h3 {
+    font-family: LifeCraft, sans-serif;
+}
+
+#controls, #gameplay, #game-details {
     display: none;
+}
+
+#gamearea {
+    background-color: rgba(255, 255, 255, 0.5);
+    min-height: 100vh;
+    width: 80%;
+    padding: 20px;
+}
+
+#controls, #gameplay {
+    margin-top: -35px;
+}
+
+#good-luck {
+    padding-bottom: 20px;
+}
+
+.btn {
+    background-color: #257377;
+    color: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    max-width: 100%;
+}
+
+.btn:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #257377;
+}
+
+#userinput, #health-area, #inventory-area {
+    padding-bottom: 10px;
+    float: left;
+    margin-left: 10px;
+}
+
+#usertext, #usertext:focus {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid #257377;
+    border-radius: 10px;
+    outline: none;
+    margin-bottom: 10px;
+    max-width: 100%;
+    text-indent: 5px;
+}
+
+#inventory-area {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding-top: 10px;
 }
 
 .error-text, .item-text, .health-text {
@@ -7,13 +72,47 @@
 }
 
 .error-text {
-    color: red;
+    color: #C70039;
+    color: #930000;
 }
 
 .item-text {
-    color: blue;
+    color: #22428B;
 }
 
 .health-text {
-    color: green;
+    color: #185C32;
+}
+
+/* Styling placeholder text inside input box */
+::placeholder  {
+    font-style: italic;
+}
+
+:-ms-input-placeholder {
+    font-style: italic;
+}
+
+::-ms-input-placeholder {
+    font-style: italic;
+}
+
+/* Specific styling for larger screens */
+@media (min-width: 992px) {
+    #title {
+        margin-top: 50px;
+        margin-bottom: 25px;
+    }
+    #userinput, #health-area, #inventory-area {
+        margin: 0;
+    }
+    #usertext {
+        margin-top: 10px;
+    }
+}
+
+/* Fonts */
+@font-face {
+    font-family: LifeCraft; 
+    src: url(../fonts/LifeCraft.ttf);
 }

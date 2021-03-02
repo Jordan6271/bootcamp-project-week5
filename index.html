@@ -9,10 +9,10 @@
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
   </head>
   <body>
-    <div class="container">
-      <div id="gamearea">
+    <div class="container-fluid" id="gamearea">
+      <div id="rulesarea" class="text-center">
         <div id="title">
-          <div class="col">
+          <div>
             <h1 class="text-center">Escape From The Manor</h1>
             <br />
             <h2 class="text-center" id="rules-title">Rules of the Game</h2>
@@ -25,7 +25,7 @@
             <div id="goal">
               <h3 class="text-center">Goal</h3>
               <p class="text-center">The aim of the game is to find your way safely out of the manor. There will be several obstacles in your way to freedom, some more challenging than others. You must investigate the rooms of the manor to find helpful hints and tools which you can use to make it easier to succeed in any trials you might face. There are few guaranteed victories, and if you choose to begin a fight unprepared, you may fail, and must restart the game to try again.</p>
-              <div id="showControls" class="justify-content-center">
+              <div id="showControls" class="text-center">
                 <input id="showControlsButton" type="button" value="Show Controls" class="btn text-center" onclick="showNextSection('goal', 'controls')"/>
               </div>
             </div>
@@ -35,7 +35,7 @@
               <p class="text-center">If you try to interact with an object that does not have any interactions associated with it, the error message <span class="error-text">"You can't do that."</span> will display.</p>
               <p class="text-center">The directions you can move will be indicated within the description of each room. To move to a new room, type "north", "east", "south", or "west". If you type a direction that is not applicable to your current room, the error message <span class="error-text">"You can't go that way."</span> will display.</p>
               <p class="text-center">Commands that you type are not case sensitive.</p>
-              <div id="showGameplay">
+              <div id="showGameplay" class="text-center">
                 <input id="showGameplayButton" type="button" value="Show Gameplay" class="btn text-center" onclick="showNextSection('controls', 'gameplay')" autofocus/>
               </div>
             </div>
@@ -45,15 +45,15 @@
               <p class="text-center">Two items may interact with one another. If you type the name of an item in your inventory, and you are in the room with an object that can be combined with it, you will receive a new item, and a message will be displayed to this effect. This also works if you type the name of an object in a room which is associated with one in your inventory.</p>
               <p class="text-center">If an item in your inventory can be used during a fight, this will automatically occur.</p>
               <p class="text-center">Your health will increase or decrease depending on certain interactions you make, and your performance in different scenarios. This will be indicated by <span class="health-text">green text if you gain health</span>, or <span class="error-text">red text if you lose health.</span> If you perform poorly and start a fight unprepared, you may fail. In this case, you must restart the game to try again.</p>
-              <h3 class="text-center">Good Luck!</h3>
-              <div id="startGame">
-              <input id="startGameButton" type="button" value="Start Game" class="btn text-center" onclick="startGame()"/>
+              <h3 class="text-center" id="good-luck">Good Luck!</h3>
+              <div id="startGame" class="text-center">
+                <input id="startGameButton" type="button" value="Start Game" class="btn text-center" onclick="startGame()"/>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div id="game-details">
+      <div id="game-details" class="w-100">
           <!--Game Area-->
           <div class="justify-content-center mx-auto">
               <p id="errors" class="text-center error-text"></p>
@@ -62,23 +62,38 @@
               <p id="location" class="text-center"></p>
               <p id="description" class="text-center"></p>
               <p id="directions" class="text-center"></p><br />
-              <div id="buttonarea">
+              <div id="buttonarea" class="text-center">
                 <input id="startButton" type="button" value="Start Game" class="btn text-center" onclick="startGame()"/>
               </div>
-              <div id="userinput"><input type="text" id="usertext"/></div>
-            </div>
-            <div id="static-content" class="col-12">
-              <div id="health-area" class="col-5">
-                <div id="health-text"></div>
+
+
+
+              <div id="static-content" class="justify-content-center row col-12 d-flex flex-column flex-lg-row">
+                <div class="d-flex flex-column flex-lg-row col-12 col-lg-8">
+                  <div id="userinput" class="text-center order-lg-2 col-12 col-lg-6">
+                    <input type="text" id="usertext" placeholder="Type commands here..."/>
+                  </div>
+                  <div id="health-area" class="text-center order-lg-1 col-12 col-lg-6"></div>
+                </div>
+                <div class="d-flex flex-column flex-lg-row col-12 col-lg-4">
+                  <div id="inventory-area" class="text-center col-12"></div>
+                </div>
               </div>
-              <div id="inventory-area" class="col-5">
-                <div id="inventory-list"></div>
+
+              <!-- <div id="static-content" class="text-center row justify-content-center col-12 d-flex flex-column flex-lg-row">
+                <div class="d-flex flex-column flex-lg-row col-12">
+                  <div id="userinput" class="text-center col-12 col-lg-4">
+                    <input type="text" id="usertext" placeholder="Type commands here..."/>
+                </div>
+                  <div id="health-area" class="col-12 col-lg-4"></div>
+                </div>
+                <div id="inventory-area" class="col-12 col-lg-4"></div>
               </div>
-            </div>
+            </div> -->
       </div>
     </div>
   </div>
-  <!-- link to external JavaScript-->
+  <!-- Link to my JavaScript-->
   <script src="scripts/index.js"></script>
   </body>
 </html>
