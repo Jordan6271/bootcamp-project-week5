@@ -1,5 +1,39 @@
+body, html {
+    min-height: 100%;
+    background-size: cover;
+}
+
+body {
+    background-color: #257377;
+    font-weight: bold;
+}
+
 #game-details, #controls, #gameplay, #items, #errors, #health, #userinput, #static-content {
     display: none;
+}
+
+#gamearea {
+    background-color: rgba(255, 255, 255, 0.5);
+    min-height: 100vh;
+    width: 80%;
+    padding-top: 20px;
+}
+
+.btn {
+    background-color: #257377;
+    color: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+}
+
+.btn:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #257377;
+}
+
+#usertext, #usertext:focus {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid #257377;
+    outline: none;
 }
 
 .error-text, .item-text, .health-text {
@@ -7,13 +41,25 @@
 }
 
 .error-text {
-    color: red;
+    color: #C70039;
 }
 
 .item-text {
-    color: blue;
+    color: #22428B;
 }
 
 .health-text {
-    color: green;
+    color: #185C32;
+}
+
+::placeholder  {
+    font-style: italic;
+}
+
+:-ms-input-placeholder {
+    font-style: italic;
+}
+
+::-ms-input-placeholder {
+    font-style: italic;
 }
