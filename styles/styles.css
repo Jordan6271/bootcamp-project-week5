@@ -9,10 +9,12 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     font-weight: bold;
+    font-size: 1.05rem;
 }
 
-#title, h3 {
+h1, h2, h3 {
     font-family: LifeCraft, sans-serif;
+    font-size: 3rem;
 }
 
 #controls, #gameplay, #game-details {

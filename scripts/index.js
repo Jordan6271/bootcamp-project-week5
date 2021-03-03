@@ -389,13 +389,9 @@ class Player extends Character {
             }
         } else {
             if (this._inventory.includes(enemy.weakness.name)) {
-                if (this._health <= enemy.health) {
-                    loseGame();
-                } else {
-                    this._health = this._health + 30;
-                    player.updateHealth();
-                    this.killEnemy(enemy);
-                }
+                this._health = this._health + 30;
+                player.updateHealth();
+                this.killEnemy(enemy);
             } else {
                 this._health = this._health - enemy.health;
                 if (this._health > 0) {
