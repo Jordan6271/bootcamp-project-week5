@@ -1046,6 +1046,9 @@ function commandHandler(command) {
                             piece of paper. It appears to be an incantation of some kind.`;
                         player.addToInventory(incantationPage);
                         break;
+                    default: 
+                        showErrors();
+                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
                 }
             } else if (currentRoom.name === `Banquet Hall`) {
                 switch(command) {
@@ -1054,6 +1057,17 @@ function commandHandler(command) {
                     case `eat`:
                         player.startFight(hog);
                         break;
+                    case `flute`:
+                        if (player._inventory.includes(flute.name)) {
+                            player.startFight(hog);
+                        } else {
+                            showErrors();
+                            document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        }
+                        break; 
+                    default: 
+                        showErrors();
+                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
                 }
             } else if (currentRoom.name === `Kitchen`) {
                 switch(command) {
@@ -1076,6 +1090,9 @@ function commandHandler(command) {
                     case `green apple`:
                         player.eatFood(greenApple);
                         break;
+                    default: 
+                        showErrors();
+                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
                 }
             } else if (currentRoom.name === `Courtyard`) {
                 switch(command) {
@@ -1115,6 +1132,9 @@ function commandHandler(command) {
                             document.getElementById(`errors`).innerHTML = `What torch?`;
                         }
                         break;
+                    default: 
+                        showErrors();
+                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
                 } 
             } else if (currentRoom.name === `Conservatory`) {
                 switch(command) {
@@ -1136,6 +1156,9 @@ function commandHandler(command) {
                         document.getElementById(`items`).innerHTML = `You pick up an unlit torch.`;
                         player.addToInventory(unlitTorch);
                         break;
+                    default: 
+                        showErrors();
+                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
                 }
             } else if (currentRoom.name === `Ballroom`) {
                 switch(command) {
@@ -1143,6 +1166,19 @@ function commandHandler(command) {
                     case `curtains`:
                         player.startFight(witches);
                         break;
+                    case `incantation`:
+                    case `incantation page`:
+                    case `page`:
+                        if (player._inventory.includes(incantationPage.name)) {
+                            player.startFight(witches);
+                        } else {
+                            showErrors();
+                            document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        }
+                        break; 
+                    default: 
+                        showErrors();
+                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
                 }
             } else if (currentRoom.name === `Viewing Platform`) {
                 switch(command) {
@@ -1154,6 +1190,9 @@ function commandHandler(command) {
                         document.getElementById(`items`).innerHTML = `You pick up a mirror.`;
                         player.addToInventory(mirror);
                         break;
+                    default: 
+                        showErrors();
+                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
                 }
             } else if (currentRoom.name === `Upper Foyer`) {
                 switch(command) {
@@ -1161,7 +1200,10 @@ function commandHandler(command) {
                     case `painting`:
                         document.getElementById(`items`).innerHTML = `You note down the time on the Clock in the painting. It's 7:06.`;
                         player.addToInventory(clockTime);
-                        break;   
+                        break;  
+                    default: 
+                        showErrors();
+                        document.getElementById(`errors`).innerHTML = `You can't do that.`; 
                 }
             } else if (currentRoom.name === `Ritual Chamber`) {
                 switch(command) {
@@ -1205,19 +1247,63 @@ function commandHandler(command) {
                                 recently. You notice a draft from the wall behind it but feel you might be missing something.`;
                         }
                         break;
+                    default: 
+                        showErrors();
+                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
                 }
             } else if (currentRoom.name === `Inner Sanctum`) {
                 switch(command) {
                     case `fight`:
                         player.startFight(vampire);
                         break;
+                    case `water`:
+                    case `holy water`:
+                        if (player._inventory.includes(holyWater.name)) {
+                            player.startFight(vampire);
+                        } else {
+                            showErrors();
+                            document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        }
+                        break;
+                    case `mirror`:
+                        if (player._inventory.includes(mirror.name)) {
+                            player.startFight(vampire);
+                        } else {
+                            showErrors();
+                            document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        }
+                        break;
+                    case `garlic`:
+                        if (player._inventory.includes(garlic.name)) {
+                            player.startFight(vampire);
+                        } else {
+                            showErrors();
+                            document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        }
+                        break;
                     case `flee`:
                         currentRoom.move(`north`);
                         break;
+                    default: 
+                        showErrors();
+                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                }
+            } else if (currentRoom.name === `Foyer`) {
+                switch(command) {
+                    default: 
+                        showErrors();
+                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                }
+            } else if (currentRoom.name === `Library`) {
+                switch(command) {
+                    default: 
+                        showErrors();
+                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
                 }
             } else {
                 showErrors();
                 document.getElementById(`errors`).innerHTML = `You can't do that here.`;
+                break;
             }   
             break;
         case `restart`:
@@ -1252,8 +1338,8 @@ function startGame() {
             const commands = [`restart`, `fire`, `hearth`, `bucket`, `coal`, `hog`, `table`, `eat`, `jar`, `jars`, `empty jar`, 
                 `empty jars`, `shelf`, `shelves`, `cupboard`, `apples`, `apple`, `green apples`, `green apple`, `red apples`, 
                 `red apple`, `fountain`, `water`, `tree`, `oak tree`, `sword`, `knight`, `torch`, `unlit torch`, `curtain`, 
-                `curtains`, `flute`, `mirror`, `clock`, `painting`, `candle`, `wine`, `bottle`, `goblet`, `grapes`, `red grapes`, 
-                `fight`, `flee`];
+                `curtains`, `incantation`, `page`, `flute`, `mirror`, `clock`, `painting`, `candle`, `wine`, `bottle`, `goblet`, 
+                `grapes`, `red grapes`, `fight`, `holy water`, `garlic`, `flee`];
             if (directions.includes(command)) {
                 currentRoom = currentRoom.move(command);
             } else if (commands.includes(command)) {
