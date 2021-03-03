@@ -1144,6 +1144,9 @@ function commandHandler(command) {
                     case `red apple`:
                         player.eatFood(redApple);
                         break;
+                    default: 
+                        showErrors();
+                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
                 }
             } else if (currentRoom.name === `West Corridor`) {
                 switch(command) {
