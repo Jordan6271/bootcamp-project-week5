@@ -1049,6 +1049,7 @@ function commandHandler(command) {
                     default: 
                         showErrors();
                         document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        break;
                 }
             } else if (currentRoom.name === `Banquet Hall`) {
                 switch(command) {
@@ -1068,6 +1069,7 @@ function commandHandler(command) {
                     default: 
                         showErrors();
                         document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        break;
                 }
             } else if (currentRoom.name === `Kitchen`) {
                 switch(command) {
@@ -1093,6 +1095,7 @@ function commandHandler(command) {
                     default: 
                         showErrors();
                         document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        break;
                 }
             } else if (currentRoom.name === `Courtyard`) {
                 switch(command) {
@@ -1135,6 +1138,7 @@ function commandHandler(command) {
                     default: 
                         showErrors();
                         document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        break;
                 } 
             } else if (currentRoom.name === `Conservatory`) {
                 switch(command) {
@@ -1147,6 +1151,7 @@ function commandHandler(command) {
                     default: 
                         showErrors();
                         document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        break;
                 }
             } else if (currentRoom.name === `West Corridor`) {
                 switch(command) {
@@ -1162,6 +1167,7 @@ function commandHandler(command) {
                     default: 
                         showErrors();
                         document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        break;
                 }
             } else if (currentRoom.name === `Ballroom`) {
                 switch(command) {
@@ -1176,12 +1182,13 @@ function commandHandler(command) {
                             player.startFight(witches);
                         } else {
                             showErrors();
-                            document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                            document.getElementById(`errors`).innerHTML = `You can't do that.`;    
                         }
                         break; 
                     default: 
                         showErrors();
                         document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        break;
                 }
             } else if (currentRoom.name === `Viewing Platform`) {
                 switch(command) {
@@ -1196,6 +1203,7 @@ function commandHandler(command) {
                     default: 
                         showErrors();
                         document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        break;
                 }
             } else if (currentRoom.name === `Upper Foyer`) {
                 switch(command) {
@@ -1207,6 +1215,7 @@ function commandHandler(command) {
                     default: 
                         showErrors();
                         document.getElementById(`errors`).innerHTML = `You can't do that.`; 
+                        break;
                 }
             } else if (currentRoom.name === `Ritual Chamber`) {
                 switch(command) {
@@ -1253,6 +1262,7 @@ function commandHandler(command) {
                     default: 
                         showErrors();
                         document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        break;
                 }
             } else if (currentRoom.name === `Inner Sanctum`) {
                 switch(command) {
@@ -1290,18 +1300,21 @@ function commandHandler(command) {
                     default: 
                         showErrors();
                         document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        break;
                 }
             } else if (currentRoom.name === `Foyer`) {
                 switch(command) {
                     default: 
                         showErrors();
                         document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        break;
                 }
             } else if (currentRoom.name === `Library`) {
                 switch(command) {
                     default: 
                         showErrors();
                         document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        break;
                 }
             } else {
                 showErrors();
