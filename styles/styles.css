@@ -1,23 +1,28 @@
-body, html {
+body,
+html {
     min-height: 100%;
     background-size: cover;
 }
 
 body {
     background-color: #257377;
-    background-image: url('../images/intro.jpg');
+    background-image: url("../images/intro.jpg");
     background-repeat: no-repeat;
     background-position: center;
     font-weight: bold;
     font-size: 1.05rem;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-family: LifeCraft, sans-serif;
     font-size: 3rem;
 }
 
-#controls, #gameplay, #game-details {
+#controls,
+#gameplay,
+#game-details {
     display: none;
 }
 
@@ -28,7 +33,8 @@ h1, h2, h3 {
     padding: 20px;
 }
 
-#controls, #gameplay {
+#controls,
+#gameplay {
     margin-top: -35px;
 }
 
@@ -48,13 +54,16 @@ h1, h2, h3 {
     color: #257377;
 }
 
-#userinput, #health-area, #inventory-area {
+#userinput,
+#health-area,
+#inventory-area {
     padding-bottom: 10px;
     float: left;
     margin-left: 10px;
 }
 
-#usertext, #usertext:focus {
+#usertext,
+#usertext:focus {
     background-color: rgba(255, 255, 255, 0.5);
     border: 2px solid #257377;
     border-radius: 10px;
@@ -69,25 +78,27 @@ h1, h2, h3 {
     padding-top: 10px;
 }
 
-.error-text, .item-text, .health-text {
+.error-text,
+.item-text,
+.health-text {
     font-weight: bold;
 }
 
 .error-text {
-    color: #C70039;
+    color: #c70039;
     color: #930000;
 }
 
 .item-text {
-    color: #22428B;
+    color: #22428b;
 }
 
 .health-text {
-    color: #185C32;
+    color: #185c32;
 }
 
 /* Styling placeholder text inside input box */
-::placeholder  {
+::placeholder {
     font-style: italic;
 }
 
@@ -105,7 +116,9 @@ h1, h2, h3 {
         margin-top: 50px;
         margin-bottom: 25px;
     }
-    #userinput, #health-area, #inventory-area {
+    #userinput,
+    #health-area,
+    #inventory-area {
         margin: 0;
     }
     #usertext {
@@ -115,6 +128,6 @@ h1, h2, h3 {
 
 /* Fonts */
 @font-face {
-    font-family: LifeCraft; 
+    font-family: LifeCraft;
     src: url(../fonts/LifeCraft.ttf);
 }

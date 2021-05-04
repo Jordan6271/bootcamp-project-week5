@@ -25,7 +25,7 @@ class Room {
     get item() {
         return this._item;
     }
-    
+
     get directions() {
         return this._directions;
     }
@@ -75,27 +75,42 @@ class Room {
     }
 
     move(direction) {
-        if (currentRoom.name === `Inner Sanctum` && direction === `north` ) {
+        if (currentRoom.name === `Inner Sanctum` && direction === `north`) {
             currentRoom = this._linkedRooms[direction];
             displayRoomInfo(currentRoom);
-            if (player._inventory.includes(candle.name) || player._inventory.includes(litTorch.name)) {
-                document.getElementById(`description`).innerHTML = `You are grateful that you had enough wits about you to 
+            if (
+                player._inventory.includes(candle.name) ||
+                player._inventory.includes(litTorch.name)
+            ) {
+                document.getElementById(
+                    `description`
+                ).innerHTML = `You are grateful that you had enough wits about you to 
                     pick up a light source to illuminate this tunnel. The tunnel is narrow, no wider than the span of your arms. 
                     Thousands of spiders move as one on the walls around you. They flee from the heat of the flame you bear. 
                     You can just make out the tunnel exit ahead, but there is still some distance to travel.`;
             } else {
-                document.getElementById(`description`).innerHTML = `It is pitch black. You can’t see your own feet under you and 
+                document.getElementById(
+                    `description`
+                ).innerHTML = `It is pitch black. You can’t see your own feet under you and 
                     you have no perspective of how far the tunnel goes, but you take tentative steps forward. You stretch out both 
                     arms either side of you and feel rough cold stone on both palms of your hands.`;
             }
             return this._linkedRooms[direction];
-        } else if (currentRoom.name === `Ritual Chamber` && direction === `south`) {
+        } else if (
+            currentRoom.name === `Ritual Chamber` &&
+            direction === `south`
+        ) {
             if (player._kills.includes(`Clock`)) {
                 ritualChamber.linkRoom(`south`, tunnel);
                 currentRoom = this._linkedRooms[direction];
                 displayRoomInfo(currentRoom);
-                if (player._inventory.includes(candle.name) || player._inventory.includes(litTorch.name)) {
-                    document.getElementById(`description`).innerHTML = `You are grateful that you had enough wits about you to pick 
+                if (
+                    player._inventory.includes(candle.name) ||
+                    player._inventory.includes(litTorch.name)
+                ) {
+                    document.getElementById(
+                        `description`
+                    ).innerHTML = `You are grateful that you had enough wits about you to pick 
                         up a light source to illuminate this tunnel. The tunnel is narrow, no wider than the span of your arms. 
                         Thousands of spiders move as one on the walls around you. They flee from the heat of the flame you bear. 
                         You can just make out the tunnel exit ahead, but there is still some distance to travel.`;
@@ -103,75 +118,168 @@ class Room {
                     player._health = player._health - 10;
                     player.updateHealth();
                     showErrors();
-                    document.getElementById(`errors`).innerHTML = `You have lost 10 health.`; 
+                    document.getElementById(
+                        `errors`
+                    ).innerHTML = `You have lost 10 health.`;
                 }
                 return this._linkedRooms[direction];
             } else {
                 displayRoomInfo(currentRoom);
                 showErrors();
-                document.getElementById(`errors`).innerHTML = `There is no apparent path that way.`;
+                document.getElementById(
+                    `errors`
+                ).innerHTML = `There is no apparent path that way.`;
                 return this;
             }
-        } else if ((currentRoom.name === `Conservatory` && direction === `north` && player._kills.includes(`Clock`))
-                || (currentRoom.name === `Kitchen` && direction === `west` && player._kills.includes(`Clock`))
-                || (currentRoom.name === `Tunnel` && direction === `north` && player._kills.includes(`Clock`))) {
-                    currentRoom = this._linkedRooms[direction];
-                    displayRoomInfo(currentRoom);
-                    document.getElementById(`directions`).innerHTML = `There are two sets of ascending stairs. One leading up to a 
-                        wooden hatch in the north and the other to a door in the east. There is now a tunnel entrance to the south.`;
-                    return this._linkedRooms[direction];
-
-        } else if ((currentRoom.name === `Foyer` && direction ===`west` && player._kills.includes(`${knights.name}`))
-                || (currentRoom.name === `Ballroom` && direction === `east` && player._kills.includes(`${knights.name}`))
-                || (currentRoom.name === `Conservatory` && direction === `south` && player._kills.includes(`${knights.name}`))) {
-                    currentRoom = this._linkedRooms[direction];
-                    displayRoomInfo(currentRoom);
-                    document.getElementById(`description`).innerHTML = `${knights.afterFight}`;
-                    return this._linkedRooms[direction];
-        } else if ((currentRoom.name === `Hunting Lodge` && direction === `north` && player._kills.includes(`${hog.name}`)) 
-                || (currentRoom.name === `Kitchen` && direction === `south` && player._kills.includes(`${hog.name}`)) 
-                || (currentRoom.name === `Courtyard` && direction === `east` && player._kills.includes(`${hog.name}`))) {
+        } else if (
+            (currentRoom.name === `Conservatory` &&
+                direction === `north` &&
+                player._kills.includes(`Clock`)) ||
+            (currentRoom.name === `Kitchen` &&
+                direction === `west` &&
+                player._kills.includes(`Clock`)) ||
+            (currentRoom.name === `Tunnel` &&
+                direction === `north` &&
+                player._kills.includes(`Clock`))
+        ) {
             currentRoom = this._linkedRooms[direction];
             displayRoomInfo(currentRoom);
-            document.getElementById(`description`).innerHTML = `${hog.afterFight}`;
+            document.getElementById(
+                `directions`
+            ).innerHTML = `There are two sets of ascending stairs. One leading up to a 
+                        wooden hatch in the north and the other to a door in the east. There is now a tunnel entrance to the south.`;
             return this._linkedRooms[direction];
-        } else if ((currentRoom.name === `Hunting Lodge` && direction === `north` && player._kills.includes(`${hog.name} with the ${hog.weakness.name}`)) 
-                || (currentRoom.name === `Kitchen` && direction === `south` && player._kills.includes(`${hog.name} with the ${hog.weakness.name}`)) 
-                || (currentRoom.name === `Courtyard` && direction === `east` && player._kills.includes(`${hog.name} with the ${hog.weakness.name}`))) {
-                    currentRoom = this._linkedRooms[direction];
-                    displayRoomInfo(currentRoom);
-                    document.getElementById(`description`).innerHTML = `${hog.easyFight}`;
-                    return this._linkedRooms[direction];
-        } else if ((currentRoom.name === `West Corridor` && direction === `west` && player._kills.includes(`${witches.name}`)) 
-                || (currentRoom.name === `Viewing Platform` && direction === `north` && player._kills.includes(`${witches.name}`)) 
-                || (currentRoom.name === `Viewing Platform` && direction === `south` && player._kills.includes(`${witches.name}`))
-                || (currentRoom.name === `West Corridor` && direction === `west` && player._kills.includes(`${witches.name} with the ${witches.weakness.name}`)) 
-                || (currentRoom.name === `Viewing Platform` && direction === `north` && player._kills.includes(`${witches.name} with the ${witches.weakness.name}`))
-                || (currentRoom.name === `Viewing Platform` && direction === `south` && player._kills.includes(`${witches.name} with the ${witches.weakness.name}`))) {
-                    currentRoom = this._linkedRooms[direction];
-                    displayRoomInfo(currentRoom);
-                    document.getElementById(`description`).innerHTML = `${witches.afterFight}`;
-                    return this._linkedRooms[direction];
-        } else if ((currentRoom.name === `Banquet Hall` && direction === `west` && player._kills.includes(`${tree.name}`)) 
-                || (currentRoom.name === `Conservatory` && direction === `east` && player._kills.includes(`${tree.name}`))) {
-                    currentRoom = this._linkedRooms[direction];
-                    displayRoomInfo(currentRoom);
-                    document.getElementById(`description`).innerHTML = `${tree.afterFight}`;
-                    return this._linkedRooms[direction];
-        } else if ((currentRoom.name === `Banquet Hall` && direction === `west` && player._kills.includes(`${tree.name} with the ${tree.weakness.name}`)) 
-                || (currentRoom.name === `Conservatory` && direction === `east` && player._kills.includes(`${tree.name} with the ${tree.weakness.name}`))) {
-                    currentRoom = this._linkedRooms[direction];
-                    displayRoomInfo(currentRoom);
-                    document.getElementById(`description`).innerHTML = `${tree.easyFight}`;
-                    return this._linkedRooms[direction];
+        } else if (
+            (currentRoom.name === `Foyer` &&
+                direction === `west` &&
+                player._kills.includes(`${knights.name}`)) ||
+            (currentRoom.name === `Ballroom` &&
+                direction === `east` &&
+                player._kills.includes(`${knights.name}`)) ||
+            (currentRoom.name === `Conservatory` &&
+                direction === `south` &&
+                player._kills.includes(`${knights.name}`))
+        ) {
+            currentRoom = this._linkedRooms[direction];
+            displayRoomInfo(currentRoom);
+            document.getElementById(
+                `description`
+            ).innerHTML = `${knights.afterFight}`;
+            return this._linkedRooms[direction];
+        } else if (
+            (currentRoom.name === `Hunting Lodge` &&
+                direction === `north` &&
+                player._kills.includes(`${hog.name}`)) ||
+            (currentRoom.name === `Kitchen` &&
+                direction === `south` &&
+                player._kills.includes(`${hog.name}`)) ||
+            (currentRoom.name === `Courtyard` &&
+                direction === `east` &&
+                player._kills.includes(`${hog.name}`))
+        ) {
+            currentRoom = this._linkedRooms[direction];
+            displayRoomInfo(currentRoom);
+            document.getElementById(
+                `description`
+            ).innerHTML = `${hog.afterFight}`;
+            return this._linkedRooms[direction];
+        } else if (
+            (currentRoom.name === `Hunting Lodge` &&
+                direction === `north` &&
+                player._kills.includes(
+                    `${hog.name} with the ${hog.weakness.name}`
+                )) ||
+            (currentRoom.name === `Kitchen` &&
+                direction === `south` &&
+                player._kills.includes(
+                    `${hog.name} with the ${hog.weakness.name}`
+                )) ||
+            (currentRoom.name === `Courtyard` &&
+                direction === `east` &&
+                player._kills.includes(
+                    `${hog.name} with the ${hog.weakness.name}`
+                ))
+        ) {
+            currentRoom = this._linkedRooms[direction];
+            displayRoomInfo(currentRoom);
+            document.getElementById(
+                `description`
+            ).innerHTML = `${hog.easyFight}`;
+            return this._linkedRooms[direction];
+        } else if (
+            (currentRoom.name === `West Corridor` &&
+                direction === `west` &&
+                player._kills.includes(`${witches.name}`)) ||
+            (currentRoom.name === `Viewing Platform` &&
+                direction === `north` &&
+                player._kills.includes(`${witches.name}`)) ||
+            (currentRoom.name === `Viewing Platform` &&
+                direction === `south` &&
+                player._kills.includes(`${witches.name}`)) ||
+            (currentRoom.name === `West Corridor` &&
+                direction === `west` &&
+                player._kills.includes(
+                    `${witches.name} with the ${witches.weakness.name}`
+                )) ||
+            (currentRoom.name === `Viewing Platform` &&
+                direction === `north` &&
+                player._kills.includes(
+                    `${witches.name} with the ${witches.weakness.name}`
+                )) ||
+            (currentRoom.name === `Viewing Platform` &&
+                direction === `south` &&
+                player._kills.includes(
+                    `${witches.name} with the ${witches.weakness.name}`
+                ))
+        ) {
+            currentRoom = this._linkedRooms[direction];
+            displayRoomInfo(currentRoom);
+            document.getElementById(
+                `description`
+            ).innerHTML = `${witches.afterFight}`;
+            return this._linkedRooms[direction];
+        } else if (
+            (currentRoom.name === `Banquet Hall` &&
+                direction === `west` &&
+                player._kills.includes(`${tree.name}`)) ||
+            (currentRoom.name === `Conservatory` &&
+                direction === `east` &&
+                player._kills.includes(`${tree.name}`))
+        ) {
+            currentRoom = this._linkedRooms[direction];
+            displayRoomInfo(currentRoom);
+            document.getElementById(
+                `description`
+            ).innerHTML = `${tree.afterFight}`;
+            return this._linkedRooms[direction];
+        } else if (
+            (currentRoom.name === `Banquet Hall` &&
+                direction === `west` &&
+                player._kills.includes(
+                    `${tree.name} with the ${tree.weakness.name}`
+                )) ||
+            (currentRoom.name === `Conservatory` &&
+                direction === `east` &&
+                player._kills.includes(
+                    `${tree.name} with the ${tree.weakness.name}`
+                ))
+        ) {
+            currentRoom = this._linkedRooms[direction];
+            displayRoomInfo(currentRoom);
+            document.getElementById(
+                `description`
+            ).innerHTML = `${tree.easyFight}`;
+            return this._linkedRooms[direction];
         } else if (direction in this._linkedRooms) {
             currentRoom = this._linkedRooms[direction];
-            
+
             displayRoomInfo(currentRoom);
             return this._linkedRooms[direction];
         } else {
             showErrors();
-            document.getElementById(`errors`).innerHTML = `You can't go that way.`;
+            document.getElementById(
+                `errors`
+            ).innerHTML = `You can't go that way.`;
             return this;
         }
     }
@@ -232,7 +340,7 @@ class Character {
 
 class Player extends Character {
     constructor(name) {
-        super(name,);
+        super(name);
         this._inventory = [];
         this._food = [];
         this._kills = [];
@@ -268,9 +376,13 @@ class Player extends Character {
         if (this._inventory.includes(item.name)) {
             showErrors();
             if (item === clockTime) {
-                document.getElementById(`errors`).innerHTML = `You have already made a note of the time on the clock.`;
+                document.getElementById(
+                    `errors`
+                ).innerHTML = `You have already made a note of the time on the clock.`;
             } else {
-                document.getElementById(`errors`).innerHTML = `You have already picked up the ${item.name.toLowerCase()}.`;
+                document.getElementById(
+                    `errors`
+                ).innerHTML = `You have already picked up the ${item.name.toLowerCase()}.`;
             }
         } else {
             showItems();
@@ -281,36 +393,54 @@ class Player extends Character {
 
     updateInventory() {
         if (player.inventory.length <= 0) {
-            document.getElementById(`inventory-area`).innerHTML = `<p>You have nothing in your inventory yet.</p>`;
+            document.getElementById(
+                `inventory-area`
+            ).innerHTML = `<p>You have nothing in your inventory yet.</p>`;
         } else {
-            document.getElementById(`inventory-area`).innerHTML = `<p>Your inventory contains:`;
+            document.getElementById(
+                `inventory-area`
+            ).innerHTML = `<p>Your inventory contains:`;
             var i;
             for (i = 0; i < player.inventory.length; i++) {
-                document.getElementById(`inventory-area`).innerHTML += `<li class="item-text">${player.inventory[i]}</li>`;
+                document.getElementById(
+                    `inventory-area`
+                ).innerHTML += `<li class="item-text">${player.inventory[i]}</li>`;
             }
-        }   
+        }
     }
 
     eatFood(item) {
         if (player.food.includes(item.name)) {
             showErrors();
             if (item.name === `Wine`) {
-                document.getElementById(`errors`).innerHTML = `You have already drunk all of the ${item.name.toLowerCase()}.`;
-            } else if (item.name === `Grapes`) { 
-                document.getElementById(`errors`).innerHTML = `You have already eaten the ${item.name.toLowerCase()}.`;
+                document.getElementById(
+                    `errors`
+                ).innerHTML = `You have already drunk all of the ${item.name.toLowerCase()}.`;
+            } else if (item.name === `Grapes`) {
+                document.getElementById(
+                    `errors`
+                ).innerHTML = `You have already eaten the ${item.name.toLowerCase()}.`;
             } else {
-                document.getElementById(`errors`).innerHTML = `You have already eaten a ${item.name.toLowerCase()}.`;
+                document.getElementById(
+                    `errors`
+                ).innerHTML = `You have already eaten a ${item.name.toLowerCase()}.`;
             }
         } else {
             showHealth();
             if (item.name === `Wine`) {
-                document.getElementById(`health`).innerHTML = `You chug a glass of ${item.name.toLowerCase()}, 
+                document.getElementById(
+                    `health`
+                ).innerHTML = `You chug a glass of ${item.name.toLowerCase()}, 
                     increasing your health by ${item.health}.`;
             } else if (item.name === `Grapes`) {
-                document.getElementById(`health`).innerHTML = `You eat a whole bunch of ${item.name.toLowerCase()}, 
+                document.getElementById(
+                    `health`
+                ).innerHTML = `You eat a whole bunch of ${item.name.toLowerCase()}, 
                     increasing your health by ${item.health}.`;
             } else {
-                document.getElementById(`health`).innerHTML = `You eat a ${item.name.toLowerCase()}, 
+                document.getElementById(
+                    `health`
+                ).innerHTML = `You eat a ${item.name.toLowerCase()}, 
                     increasing your health by ${item.health}.`;
             }
             this._food.push(item.name);
@@ -321,17 +451,27 @@ class Player extends Character {
 
     updateHealth() {
         if (this._health >= 100) {
-            document.getElementById(`health-area`).innerHTML = `Current health:<br /><div class="health-text w-100">${this._health}</div>`;
+            document.getElementById(
+                `health-area`
+            ).innerHTML = `Current health:<br /><div class="health-text w-100">${this._health}</div>`;
         } else {
-            document.getElementById(`health-area`).innerHTML = `Current health:<br /><div class="error-text w-100">${this._health}</div>`;
+            document.getElementById(
+                `health-area`
+            ).innerHTML = `Current health:<br /><div class="error-text w-100">${this._health}</div>`;
         }
-        
     }
 
     startFight(enemy) {
-        if (this._kills.includes(enemy.name) || this._kills.includes(`${enemy.name} with the ${enemy.weakness.name}`)) {
+        if (
+            this._kills.includes(enemy.name) ||
+            this._kills.includes(
+                `${enemy.name} with the ${enemy.weakness.name}`
+            )
+        ) {
             showErrors();
-            document.getElementById(`errors`).innerHTML = `You have already slain this enemy.`;
+            document.getElementById(
+                `errors`
+            ).innerHTML = `You have already slain this enemy.`;
         } else {
             document.getElementById(`errors`).style.display = `none`;
             document.getElementById(`health`).style.display = `none`;
@@ -340,18 +480,24 @@ class Player extends Character {
             document.getElementById(`inventory-area`).style.display = `none`;
             document.getElementById(`userinput`).style.display = `none`;
             document.getElementById(`location`).style.display = `none`;
-            document.getElementById(`description`).innerHTML = `${enemy.description}`;
+            document.getElementById(
+                `description`
+            ).innerHTML = `${enemy.description}`;
             document.getElementById(`directions`).style.display = `none`;
             document.getElementById(`buttonarea`).style.display = `block`;
-            document.getElementById(`buttonarea`).innerHTML = `<input id="fightButton" type="button" value="Fight Outcome" class="btn text-center" onclick="player.fight(${enemy.name.toLowerCase()});"/>`;
-        }   
+            document.getElementById(
+                `buttonarea`
+            ).innerHTML = `<input id="fightButton" type="button" value="Fight Outcome" class="btn text-center" onclick="player.fight(${enemy.name.toLowerCase()});"/>`;
+        }
     }
 
     fight(enemy) {
         document.getElementById(`errors`).style.display = `none`;
         if (enemy.name === `Vampire`) {
             document.getElementById(`location`).style.display = `block`;
-            document.getElementById(`location`).innerHTML = `You've already been through hell and back, but it's nearly over. 
+            document.getElementById(
+                `location`
+            ).innerHTML = `You've already been through hell and back, but it's nearly over. 
                 All that's left to do now is throw everything you've learnt from your experience in the manor right back at this monster. 
                 Then maybe this nightmare will end!`;
             if (this._inventory.includes(holyWater.name)) {
@@ -365,20 +511,62 @@ class Player extends Character {
             }
             this._health = this._health - enemy.health;
             player.updateHealth();
-            if (!this._inventory.includes(holyWater.name) && !this._inventory.includes(mirror.name) && this._inventory.includes(garlic.name)) {
-                document.getElementById(`description`).innerHTML = `${garlic.onUse}`;
-            } else if (!this._inventory.includes(holyWater.name) && this._inventory.includes(mirror.name) && !this._inventory.includes(garlic.name)) {
-                document.getElementById(`description`).innerHTML = `${mirror.onUse}`;
-            } else if (this._inventory.includes(holyWater.name) && !this._inventory.includes(mirror.name) && !this._inventory.includes(garlic.name)) {
-                document.getElementById(`description`).innerHTML = `${holyWater.onUse}`;
-            } else if (!this._inventory.includes(holyWater.name) && this._inventory.includes(mirror.name) && this._inventory.includes(garlic.name)) {
-                document.getElementById(`description`).innerHTML = `${mirror.onUse}</p><p>${garlic.onUse}`;
-            } else if (this._inventory.includes(holyWater.name) && this._inventory.includes(mirror.name) && !this._inventory.includes(garlic.name)) {
-                document.getElementById(`description`).innerHTML = `${holyWater.onUse}</p><p>${mirror.onUse}`;
-            } else if (this._inventory.includes(holyWater.name) && !this._inventory.includes(mirror.name) && this._inventory.includes(garlic.name)) {
-                document.getElementById(`description`).innerHTML = `${holyWater.onUse}</p><p>${garlic.onUse}`;
-            } else if (this._inventory.includes(holyWater.name) && this._inventory.includes(mirror.name) && this._inventory.includes(garlic.name)) {
-                document.getElementById(`description`).innerHTML = `${holyWater.onUse}</p><p>${mirror.onUse}</p><p>${garlic.onUse}`;
+            if (
+                !this._inventory.includes(holyWater.name) &&
+                !this._inventory.includes(mirror.name) &&
+                this._inventory.includes(garlic.name)
+            ) {
+                document.getElementById(
+                    `description`
+                ).innerHTML = `${garlic.onUse}`;
+            } else if (
+                !this._inventory.includes(holyWater.name) &&
+                this._inventory.includes(mirror.name) &&
+                !this._inventory.includes(garlic.name)
+            ) {
+                document.getElementById(
+                    `description`
+                ).innerHTML = `${mirror.onUse}`;
+            } else if (
+                this._inventory.includes(holyWater.name) &&
+                !this._inventory.includes(mirror.name) &&
+                !this._inventory.includes(garlic.name)
+            ) {
+                document.getElementById(
+                    `description`
+                ).innerHTML = `${holyWater.onUse}`;
+            } else if (
+                !this._inventory.includes(holyWater.name) &&
+                this._inventory.includes(mirror.name) &&
+                this._inventory.includes(garlic.name)
+            ) {
+                document.getElementById(
+                    `description`
+                ).innerHTML = `${mirror.onUse}</p><p>${garlic.onUse}`;
+            } else if (
+                this._inventory.includes(holyWater.name) &&
+                this._inventory.includes(mirror.name) &&
+                !this._inventory.includes(garlic.name)
+            ) {
+                document.getElementById(
+                    `description`
+                ).innerHTML = `${holyWater.onUse}</p><p>${mirror.onUse}`;
+            } else if (
+                this._inventory.includes(holyWater.name) &&
+                !this._inventory.includes(mirror.name) &&
+                this._inventory.includes(garlic.name)
+            ) {
+                document.getElementById(
+                    `description`
+                ).innerHTML = `${holyWater.onUse}</p><p>${garlic.onUse}`;
+            } else if (
+                this._inventory.includes(holyWater.name) &&
+                this._inventory.includes(mirror.name) &&
+                this._inventory.includes(garlic.name)
+            ) {
+                document.getElementById(
+                    `description`
+                ).innerHTML = `${holyWater.onUse}</p><p>${mirror.onUse}</p><p>${garlic.onUse}`;
             } else {
                 document.getElementById(`description`).style.display = `none`;
             }
@@ -408,36 +596,52 @@ class Player extends Character {
         document.getElementById(`errors`).style.display = `none`;
         if (enemy.name === `Vampire`) {
             document.getElementById(`directions`).style.display = `block`;
-            document.getElementById(`directions`).innerHTML = `Your hard work and keen eye have proven invaluable and you can 
+            document.getElementById(
+                `directions`
+            ).innerHTML = `Your hard work and keen eye have proven invaluable and you can 
                 see that your foe has almost met his demise. The Count falls to his knees and looks at you with a melancholy smile; 
                 his eyes plead for forgiveness. But you are not in a forgiving mood. You reach down, a new sense of rejuvenation, 
                 you pull down part of the boarded ceiling above and ram your newly fashioned stake right through his heart.`;
             document.getElementById(`buttonarea`).style.display = `block`;
-            document.getElementById(`buttonarea`).innerHTML = `<input id="winGame" type="button" value="Escape" class="btn text-center" onclick="winGame();"/>`;
+            document.getElementById(
+                `buttonarea`
+            ).innerHTML = `<input id="winGame" type="button" value="Escape" class="btn text-center" onclick="winGame();"/>`;
         } else if (enemy.name === `Knights`) {
-            document.getElementById(`description`).innerHTML = `With no other option, you tuck your head into your shoulders 
+            document.getElementById(
+                `description`
+            ).innerHTML = `With no other option, you tuck your head into your shoulders 
                 and tackle each suit, one by one. On impact, the rusted plate breaks into pieces and clatters to the floor. 
                 When the last soldier falls, you pick yourself off and allow a brief smile. Fortunately for you, this fight didn't 
                 require any brain cells. You learn a little from this encounter.</p><p class="error-text">You lose ${enemy.health} health.</p>`;
             this._kills.push(enemy.name);
             document.getElementById(`buttonarea`).style.display = `block`;
-            document.getElementById(`buttonarea`).innerHTML = `<input id="backToRoom" type="button" value="Continue" class="btn text-center" onclick="backToRoom(${enemy.name.toLowerCase()});"/>`;
+            document.getElementById(
+                `buttonarea`
+            ).innerHTML = `<input id="backToRoom" type="button" value="Continue" class="btn text-center" onclick="backToRoom(${enemy.name.toLowerCase()});"/>`;
         } else {
             if (this._inventory.includes(enemy.weakness.name)) {
-                document.getElementById(`description`).innerHTML = `${enemy.weakness.onUse}</p><p class="health-text">Your strength 
+                document.getElementById(
+                    `description`
+                ).innerHTML = `${enemy.weakness.onUse}</p><p class="health-text">Your strength 
                     and ingeniousness has seen you victorious. You gain experience from your success. Your health has been increased by 30.</p>`;
-                this._kills.push(`${enemy.name} with the ${enemy.weakness.name}`)
+                this._kills.push(
+                    `${enemy.name} with the ${enemy.weakness.name}`
+                );
                 const index = this._inventory.indexOf(enemy.weakness.name);
                 this._inventory.splice(index, 1);
                 this.updateInventory();
             } else {
-                document.getElementById(`description`).innerHTML = `${enemy.hardFight}</p><p><span class="error-text">You are lucky 
+                document.getElementById(
+                    `description`
+                ).innerHTML = `${enemy.hardFight}</p><p><span class="error-text">You are lucky 
                     to have finished this fight in one piece. Perhaps you can learn from this and come more prepared to future fights. 
                     Your health has been reduced by ${enemy.health}.</span>`;
                 this._kills.push(enemy.name);
             }
             document.getElementById(`buttonarea`).style.display = `block`;
-            document.getElementById(`buttonarea`).innerHTML = `<input id="backToRoom" type="button" value="Continue" class="btn text-center" onclick="backToRoom(${enemy.name.toLowerCase()});"/>`;
+            document.getElementById(
+                `buttonarea`
+            ).innerHTML = `<input id="backToRoom" type="button" value="Continue" class="btn text-center" onclick="backToRoom(${enemy.name.toLowerCase()});"/>`;
         }
     }
 }
@@ -500,7 +704,9 @@ function displayRoomInfo(room) {
     document.getElementById(`errors`).style.display = `none`;
     document.getElementById(`items`).style.display = `none`;
     document.getElementById(`health`).style.display = `none`;
-    document.getElementById(`title`).innerHTML = `<h1>${room.name.toUpperCase()}</h1>`;
+    document.getElementById(
+        `title`
+    ).innerHTML = `<h1>${room.name.toUpperCase()}</h1>`;
     document.getElementById(`location`).innerHTML = room.location();
     document.getElementById(`description`).innerHTML = `${room.description}`;
     document.getElementById(`directions`).innerHTML = `${room.directions}`;
@@ -512,7 +718,7 @@ function displayRoomInfo(room) {
 }
 
 // Room descriptions
-const foyer = new Room;
+const foyer = new Room();
 foyer.name = `Foyer`;
 foyer.description = `This grand entrance hall is spacious but sombre in appearance; cobwebs cling to every corner of the seemingly 
     forgotten space around you. Elegant drapes hang lifelessly from rusted rails, which hide heavy iron barred windows. The room has 
@@ -523,7 +729,7 @@ foyer.directions = `Two doors are located on the ground floor, one in the east w
     staircase ascends to the first floor.`;
 foyer.background = `url('images/foyer.jpg') no-repeat center`;
 
-const huntingLodge = new Room;
+const huntingLodge = new Room();
 huntingLodge.name = `Hunting Lodge`;
 huntingLodge.description = `This room is small and the air is warm. You are briefly soothed by the crackle of coals on the hearth, 
     which to your surprise, is lit! A copper coal bucket sits to the side. You start to consider this space cosy. That is until you 
@@ -533,7 +739,7 @@ huntingLodge.directions = `There are two doors in this room, one to the north an
     staircase leads up to the first floor.`;
 huntingLodge.background = `url('images/hunting-lodge.jpg') no-repeat center`;
 
-const banquetHall = new Room;
+const banquetHall = new Room();
 banquetHall.name = `Banquet Hall`;
 banquetHall.description = `An enormous dinner table resides in the centre of this room full of various aromas. Most are mouth-wateringly 
     good, others strange. You can’t decide if you want to salivate or be sick. Silver platters are laden with gigantic portions of several 
@@ -543,7 +749,7 @@ banquetHall.directions = `There are three doors in this room, a small door to th
     doors appear to lead to an outside area.`;
 banquetHall.background = `url('images/banquet-hall.jpg') no-repeat center`;
 
-const kitchen = new Room;
+const kitchen = new Room();
 kitchen.name = `Kitchen`;
 kitchen.description = `There is not much space to move. A tiny stove is cluttered with dirty dishes and a cast iron cooking pot, 
     dripping with some unidentifiable liquid. Some juicy looking green apples reside in a woven bowl on the countertop. Wonky wooden 
@@ -552,7 +758,7 @@ kitchen.directions = `There are two doors in this room. A small door to the sout
     descending staircase.`;
 kitchen.background = `url('images/kitchen.jpg') no-repeat center`;
 
-const courtyard = new Room;
+const courtyard = new Room();
 courtyard.name = `Courtyard`;
 courtyard.description = `The air is fresh and you breathe easier. Your attention is drawn to the beautiful natural stone fountain. 
     Its white marble base has been delicately carved with stunning doves of peace and the water runs crystal clear. A huge oak tree 
@@ -562,7 +768,7 @@ courtyard.directions = `Two doors lead back into the manor. Large glass doors in
     a conservatory can be seen to the west.`;
 courtyard.background = `url('images/courtyard.jpg') no-repeat center`;
 
-const conservatory = new Room;
+const conservatory = new Room();
 conservatory.name = `Conservatory`;
 conservatory.description = `The room is softly lit with natural light piercing through the foggy walls. A quaint, oak side table supports 
     a bowl of ripe red apples. The cold tiled floor has been decorated with dark, damp soil from a smashed flower pot; shards of porcelain 
@@ -572,7 +778,7 @@ conservatory.directions = `There are three doors in this room. A wooden hatch in
     glass door to the east appears to lead to an outdoor area, and a door to the south.`;
 conservatory.background = `url('images/conservatory.jpg') no-repeat center`;
 
-const westCorridor = new Room;
+const westCorridor = new Room();
 westCorridor.name = `West Corridor`;
 westCorridor.description = `Two regimental lines of rusted suits of armour stand on either side of this narrow passageway, while a single, 
     silver clad knight stands alone on the southern wall. Firmly grasped between two intertwined gauntlets is a striking looking sword, 
@@ -582,7 +788,7 @@ westCorridor.directions = `There are three doors in the corridor. To the north, 
     side of you. One to the east and one directly opposite, to the west.`;
 westCorridor.background = `url('images/west-corridor.jpg') no-repeat center`;
 
-const ballroom = new Room;
+const ballroom = new Room();
 ballroom.name = `Ballroom`;
 ballroom.description = `Soft music plays from a gramophone in one corner of the room. You walk further onto the dance floor and the music 
     stops. You pause and look up to a crystal chandelier as you hear it’s gemstones collide with one another for no apparent reason. Your 
@@ -593,7 +799,7 @@ ballroom.directions = `There is just one door in this room, to the east. There a
     balcony above the ballroom on the north and south walls.`;
 ballroom.background = `url('images/ballroom.jpg') no-repeat center`;
 
-const viewingPlatform = new Room;
+const viewingPlatform = new Room();
 viewingPlatform.name = `Viewing Platform`;
 viewingPlatform.description = `Waist-high silver railings run the length of this impressive balcony that hangs over the ballroom floor. 
     The area is illuminated by the crystal chandelier which you can now see must be constructed with hundreds upon thousands of individual 
@@ -605,7 +811,7 @@ viewingPlatform.directions = `There are two spiralled stairways that lead back d
     south. There is also a door to the east.`;
 viewingPlatform.background = `url('images/viewing-platform.jpg') no-repeat center`;
 
-const upperFoyer = new Room;
+const upperFoyer = new Room();
 upperFoyer.name = `Upper Foyer`;
 upperFoyer.description = `The space above the main Foyer seems to serve the pure purpose of a means to traverse between rooms on the upper 
     floor. There are no outstanding features, and very little to stop and admire. This is except for the two elaborate, golden framed 
@@ -616,7 +822,7 @@ upperFoyer.directions = `This empty hallway leads to two rooms, one to the east 
     leads back down to the main foyer.`;
 upperFoyer.background = `url('images/upper-foyer.jpg') no-repeat center`;
 
-const library = new Room;
+const library = new Room();
 library.name = `Library`;
 library.description = `Your lungs are instantly filled with dust and you get a tickle in the back of your throat. The air around you is 
     musty, and you can see a thick blanket of dirt on each of the scrolls and texts that have been crammed into bookshelves that completely 
@@ -626,7 +832,7 @@ library.description = `Your lungs are instantly filled with dust and you get a t
 library.directions = `There is one door to the west and a rough cut, marble staircase to the east, leading down to the ground floor.`;
 library.background = `url('images/library.jpg') no-repeat center`;
 
-const ritualChamber = new Room;
+const ritualChamber = new Room();
 ritualChamber.name = `Ritual Chamber`;
 ritualChamber.description = `You immediately feel uncomfortable. This basement area is illuminated by the soft glow of a single candle; 
     its deep red wax cascades down the sides of a brass candlestick and pools at the base. Its flame flickers in a gentle breeze that 
@@ -637,7 +843,7 @@ ritualChamber.directions = `There are two sets of ascending stairs. One leading 
     in the east.`;
 ritualChamber.background = `url('images/ritual-chamber.jpg') no-repeat center`;
 
-const tunnel = new Room;
+const tunnel = new Room();
 tunnel.name = `Tunnel`;
 tunnel.description = `It is pitch black. You can’t see your own feet under you and you have no perspective of how far the tunnel goes, 
     but you take tentative steps forward. You stretch out both arms either side of you and feel rough cold stone on both palms of your 
@@ -648,7 +854,7 @@ tunnel.directions = `You may wish to return to Ritual Sanctum to the north. Ther
     that freedom may be close.`;
 tunnel.background = `url('images/tunnel.jpg') no-repeat center`;
 
-const innerSanctum = new Room;
+const innerSanctum = new Room();
 innerSanctum.name = `Inner Sanctum`;
 innerSanctum.description = `You take little notice of the appearance of this room. You know where you want to be next, where you need 
     to be to escape this wretched manor. You see a rope ladder hanging from an opening in the ceiling to the south, a slither of sunlight 
@@ -710,17 +916,17 @@ tunnel.linkRoom(`south`, innerSanctum);
 innerSanctum.linkRoom(`north`, tunnel);
 
 // Item initialisation
-const unlitTorch = new Item;
+const unlitTorch = new Item();
 unlitTorch.name = `Unlit Torch`;
 
-const litTorch = new Item;
+const litTorch = new Item();
 litTorch.name = `Lit Torch`;
 litTorch.onUse = `You turn your back to the old oak, thinking that maybe if you just return to the manor, you can both put this 
     misunderstanding behind you. But as you face the fountain, you catch the reflection of a low branch sweeping the floor, 
     threatening to take you clean off your feet. Without a second thought, you nimbly jump the arm of the ancient and throw your 
     torch with determination onto the lumbering tree. It catches fire instantly and the flames spread rapidly from branch to branch.`;
 
-const incantationPage = new Item;
+const incantationPage = new Item();
 incantationPage.name = `Incantation Page`;
 incantationPage.onUse = `You start to turn to a set of spiral stairs leading to the balcony, when you hear the three beings start 
     some sort of chanting as they draw strange symbols in the air around them. You realise these signs are not too dissimilar to 
@@ -728,39 +934,39 @@ incantationPage.onUse = `You start to turn to a set of spiral stairs leading to 
     what you are saying, but you feel compelled to read aloud the scrawlings. Three shrill screams fill the entire room and the 
     witches melt into the dance floor and vanish.`;
 
-const emptyJar = new Item;
+const emptyJar = new Item();
 emptyJar.name = `Empty Jar`;
 emptyJar.onUse = `You fill the empty jar with water from the fountain. You receive Holy Water.`;
 
-const garlic = new Item;
+const garlic = new Item();
 garlic.name = `Garlic`;
 garlic.onUse = `You confidently thrust forward the garlic cloves that were hidden in your jean pocket. The Count recoils at the 
     smell, throwing his cloak over his nose in disgust. His only option is to attack from afar, and as a result you become more 
     evasive to his attacks.`;
 
-const holyWater = new Item;
+const holyWater = new Item();
 holyWater.name = `Holy Water`;
 holyWater.onUse = `You remember the fondness that the old ancient in the courtyard had towards the pristine fountain and it strikes 
     you that its unblemished waters must hold some special quality. You hurl your jar of holy water into the face of the fiend. 
     His skin starts to boil and he wretches in agony.`;
 
-const flute = new Item;
+const flute = new Item();
 flute.name = `Flute`;
 flute.onUse = `You recall how the beast was in a deep slumber before you rudely interrupted, so maybe there's a way you can get him 
     back down and dreaming. Ever grateful for your recorder lessons at school, you find the flute you picked up and pretend you know 
     how to play it. Luckily for you, it doesn't take much of a tune to send this lazy hog back to sleep.`;
 
-const mirror = new Item;
+const mirror = new Item();
 mirror.name = `Mirror`;
 mirror.onUse = `In the heat of the moment, you put your head down and run forward, directly toward the Count. This move was entirely 
     unexpected by both parties, and whether brave or stupid, you manage to bamboozle the monster in such a way that you gain just 
     enough time to reach the solitary sun beam that streams through the ceiling and redirect it with the mirror, burning a hole in 
     his chest. He cries out in anguish.`;
 
-const clockTime = new Item;
+const clockTime = new Item();
 clockTime.name = `Note of Clock Time`;
 
-const candle = new Item;
+const candle = new Item();
 candle.name = `Candle`;
 
 // Add items to rooms
@@ -782,19 +988,19 @@ upperFoyer.item = clockTime;
 ritualChamber.item = candle;
 
 // Initialising food
-const greenApple = new Food;
+const greenApple = new Food();
 greenApple.name = `Green Apple`;
 greenApple.health = 15;
 
-const redApple = new Food;
+const redApple = new Food();
 redApple.name = `Red Apple`;
 redApple.health = 15;
 
-const wine = new Food;
+const wine = new Food();
 wine.name = `Wine`;
 wine.health = 15;
 
-const grapes = new Food;
+const grapes = new Food();
 grapes.name = `Grapes`;
 grapes.health = 5;
 
@@ -805,7 +1011,7 @@ ritualChamber.item = wine;
 ritualChamber.item = grapes;
 
 // Initialising enemies
-const knights = new Enemy;
+const knights = new Enemy();
 knights.name = `Knights`;
 knights.health = 10;
 knights.description = `You gaze upon the sword and consider the protection it could offer within these unknown walls. You also think 
@@ -818,7 +1024,7 @@ knights.afterFight = `Rusted suits of armour lay scattered along this narrow pas
     glass door to the north to make several unlit torches in holders on the eastern wall visible.`;
 knights.weakness = [];
 
-const hog = new Enemy;
+const hog = new Enemy();
 hog.name = `Hog`;
 hog.health = 50;
 hog.description = `You cannot resist the temptation of the feast you have laid your eyes on. You work your way from one end of the 
@@ -838,7 +1044,7 @@ hog.deathText = `You are exhausted and in a panic. You try to run to safety, but
     the ground, slicing your hands and knees open on the broken plates around you. You feel a damp, warm breath on the back of your neck.`;
 hog.weakness = flute;
 
-const witches = new Enemy;
+const witches = new Enemy();
 witches.name = `Witches`;
 witches.health = 50;
 witches.description = `Your better nature takes control of you and you find yourself pulling back the drapes to comfort this unseen 
@@ -861,7 +1067,7 @@ witches.deathText = `You are frozen in fear. What little strength you came here 
     grow louder and louder. Then quiet. Then silence. Your body becomes wrapped in a black wispy shroud.`;
 witches.weakness = incantationPage;
 
-const tree = new Enemy;
+const tree = new Enemy();
 tree.name = `Tree`;
 tree.health = 50;
 tree.description = `Your presence has been noticed by the resident flora and fauna around you. Engraved ravens caw at the sight of you 
@@ -887,7 +1093,7 @@ tree.deathText = `You turn your back to the old oak, thinking that maybe if you 
     through the glass of the conservatory. You sit up for a moment, but can feel that you are bleeding out.`;
 tree.weakness = litTorch;
 
-const vampire = new Enemy;
+const vampire = new Enemy();
 vampire.name = `Vampire`;
 vampire.health = 300;
 vampire.description = `Your challenge is graciously accepted and the Count of the Manor gestures for you to move forward to meet him. 
@@ -953,15 +1159,21 @@ function backToRoom(enemy) {
     document.getElementById(`errors`).style.display = `none`;
     document.getElementById(`location`).style.display = `block`;
     document.getElementById(`directions`).style.display = `block`;
-    document.getElementById(`directions`).innerHTML = `${currentRoom.directions}`;
+    document.getElementById(
+        `directions`
+    ).innerHTML = `${currentRoom.directions}`;
     document.getElementById(`buttonarea`).style.display = `none`;
     document.getElementById(`userinput`).style.display = `inline-block`;
     document.getElementById(`health-area`).style.display = `inline-block`;
     document.getElementById(`inventory-area`).style.display = `inline-block`;
-    if (player._kills.includes(`${enemy.name} with the ${enemy.weakness.name}`)) {
+    if (
+        player._kills.includes(`${enemy.name} with the ${enemy.weakness.name}`)
+    ) {
         document.getElementById(`description`).innerHTML = `${enemy.easyFight}`;
     } else {
-        document.getElementById(`description`).innerHTML = `${enemy.afterFight}`;
+        document.getElementById(
+            `description`
+        ).innerHTML = `${enemy.afterFight}`;
     }
     document.getElementById(`usertext`).focus();
 }
@@ -975,8 +1187,12 @@ function clockUnlock() {
     document.getElementById(`health-area`).style.display = `inline-block`;
     document.getElementById(`inventory-area`).style.display = `inline-block`;
     document.getElementById(`usertext`).focus();
-    document.getElementById(`description`).innerHTML = `${currentRoom.description}`;
-    document.getElementById(`directions`).innerHTML = `There are two sets of ascending stairs. One leading up to a wooden hatch 
+    document.getElementById(
+        `description`
+    ).innerHTML = `${currentRoom.description}`;
+    document.getElementById(
+        `directions`
+    ).innerHTML = `There are two sets of ascending stairs. One leading up to a wooden hatch 
         in the north and the other to a door in the east. There is now a tunnel entrance to the south.`;
     const index = player._inventory.indexOf(clockTime.name);
     player._inventory.splice(index, 1);
@@ -990,69 +1206,93 @@ function loseGame(enemy) {
     document.getElementById(`health`).style.display = `none`;
     document.getElementById(`userinput`).style.display = `none`;
     document.getElementById(`buttonarea`).style.display = `block`;
-    document.getElementById(`buttonarea`).innerHTML = `<input id="restartButton" type="button" value="Restart" class="btn text-center" onclick="location.reload();"/>`;
+    document.getElementById(
+        `buttonarea`
+    ).innerHTML = `<input id="restartButton" type="button" value="Restart" class="btn text-center" onclick="location.reload();"/>`;
     if (enemy.name === `Vampire`) {
         document.getElementById(`location`).style.display = `block`;
         document.getElementById(`directions`).style.display = `block`;
-        document.getElementById(`directions`).innerHTML = `${enemy.deathText}</p><p class="error-text">${player.deathText}`;
+        document.getElementById(
+            `directions`
+        ).innerHTML = `${enemy.deathText}</p><p class="error-text">${player.deathText}`;
     } else {
         if (currentRoom.name === `Tunnel`) {
-            document.getElementById(`description`).innerHTML = `<span class="error-text">You slump to the floor and take your last 
+            document.getElementById(
+                `description`
+            ).innerHTML = `<span class="error-text">You slump to the floor and take your last 
                 breath. You have been foolish. You must better prepare yourself next time. Click the button below to try again.</span>`;
         } else {
             if (enemy.name === `Knights`) {
-            document.getElementById(`description`).innerHTML = `<span="error-text">${player.deathText}</span>`;
+                document.getElementById(
+                    `description`
+                ).innerHTML = `<span="error-text">${player.deathText}</span>`;
             } else {
-            document.getElementById(`description`).innerHTML = `${enemy.deathText}</p><p class="error-text">${player.deathText}`;
+                document.getElementById(
+                    `description`
+                ).innerHTML = `${enemy.deathText}</p><p class="error-text">${player.deathText}`;
             }
         }
     }
-} 
+}
 
 function winGame() {
     document.body.style.background = `url('images/outro.jpg') no-repeat center`;
     document.body.style.backgroundSize = `cover`;
     document.getElementById(`title`).style.display = `none`;
-    document.getElementById(`location`).innerHTML = `<br /><br />${vampire.afterFight}</p><p>Congratulations, you have escaped from the manor!`;
+    document.getElementById(
+        `location`
+    ).innerHTML = `<br /><br />${vampire.afterFight}</p><p>Congratulations, you have escaped from the manor!`;
     document.getElementById(`description`).style.display = `none`;
     document.getElementById(`directions`).style.display = `none`;
     document.getElementById(`buttonarea`).style.display = `block`;
-    document.getElementById(`buttonarea`).innerHTML = `<input id="restartGame" type="button" value="Click to Play Again" class="btn text-center" onclick="location.reload();"/>`;
+    document.getElementById(
+        `buttonarea`
+    ).innerHTML = `<input id="restartGame" type="button" value="Click to Play Again" class="btn text-center" onclick="location.reload();"/>`;
 }
 
 // Function to handle commands
 function commandHandler(command) {
-    switch(command) {
-        default: 
+    switch (command) {
+        default:
             if (currentRoom.name === `Hunting Lodge`) {
-                switch(command) {
+                switch (command) {
                     case `unlit torch`:
                     case `torch`:
                     case `fire`:
                     case `hearth`:
                         if (player.inventory.includes(unlitTorch.name)) {
-                            document.getElementById(`items`).innerHTML = `You light the torch with the flames of the hearth.`;
-                            const index = player.inventory.indexOf(unlitTorch.name);
+                            document.getElementById(
+                                `items`
+                            ).innerHTML = `You light the torch with the flames of the hearth.`;
+                            const index = player.inventory.indexOf(
+                                unlitTorch.name
+                            );
                             player.inventory.splice(index, 1);
                             player.addToInventory(litTorch);
                         } else {
                             showErrors();
-                            document.getElementById(`errors`).innerHTML = `You don't have anything to set alight.`;
+                            document.getElementById(
+                                `errors`
+                            ).innerHTML = `You don't have anything to set alight.`;
                         }
                         break;
                     case `bucket`:
                     case `coal`:
-                        document.getElementById(`items`).innerHTML = `You search the coal bucket and pull out a torn and crumpled 
+                        document.getElementById(
+                            `items`
+                        ).innerHTML = `You search the coal bucket and pull out a torn and crumpled 
                             piece of paper. It appears to be an incantation of some kind.`;
                         player.addToInventory(incantationPage);
                         break;
-                    default: 
+                    default:
                         showErrors();
-                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        document.getElementById(
+                            `errors`
+                        ).innerHTML = `You can't do that.`;
                         break;
                 }
             } else if (currentRoom.name === `Banquet Hall`) {
-                switch(command) {
+                switch (command) {
                     case `hog`:
                     case `table`:
                     case `eat`:
@@ -1063,27 +1303,35 @@ function commandHandler(command) {
                             player.startFight(hog);
                         } else {
                             showErrors();
-                            document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                            document.getElementById(
+                                `errors`
+                            ).innerHTML = `You can't do that.`;
                         }
-                        break; 
-                    default: 
+                        break;
+                    default:
                         showErrors();
-                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        document.getElementById(
+                            `errors`
+                        ).innerHTML = `You can't do that.`;
                         break;
                 }
             } else if (currentRoom.name === `Kitchen`) {
-                switch(command) {
+                switch (command) {
                     case `jar`:
                     case `jars`:
                     case `empty jar`:
                     case `empty jars`:
                     case `shelf`:
                     case `shelves`:
-                        document.getElementById(`items`).innerHTML = `You pick up an empty jar.`;
+                        document.getElementById(
+                            `items`
+                        ).innerHTML = `You pick up an empty jar.`;
                         player.addToInventory(emptyJar);
                         break;
                     case `cupboard`:
-                        document.getElementById(`items`).innerHTML = `You find a string of garlic cloves.`;
+                        document.getElementById(
+                            `items`
+                        ).innerHTML = `You find a string of garlic cloves.`;
                         player.addToInventory(garlic);
                         break;
                     case `apples`:
@@ -1092,31 +1340,48 @@ function commandHandler(command) {
                     case `green apple`:
                         player.eatFood(greenApple);
                         break;
-                    default: 
+                    default:
                         showErrors();
-                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        document.getElementById(
+                            `errors`
+                        ).innerHTML = `You can't do that.`;
                         break;
                 }
             } else if (currentRoom.name === `Courtyard`) {
-                switch(command) {
+                switch (command) {
                     case `fountain`:
                     case `water`:
                     case `empty jar`:
                     case `jar`:
-                        if (player.kills.includes(tree.name) || player.kills.includes(`${tree.name} with the ${tree.weakness.name}`)) {
+                        if (
+                            player.kills.includes(tree.name) ||
+                            player.kills.includes(
+                                `${tree.name} with the ${tree.weakness.name}`
+                            )
+                        ) {
                             if (player.inventory.includes(emptyJar.name)) {
-                                document.getElementById(`items`).innerHTML = `${emptyJar.onUse}`;
-                                const index = player.inventory.indexOf(emptyJar.name);
+                                document.getElementById(
+                                    `items`
+                                ).innerHTML = `${emptyJar.onUse}`;
+                                const index = player.inventory.indexOf(
+                                    emptyJar.name
+                                );
                                 player.inventory.splice(index, 1);
                                 player.addToInventory(holyWater);
                             } else {
                                 showErrors();
-                                document.getElementById(`errors`).innerHTML = `You don't have anything to store the water in.`;
+                                document.getElementById(
+                                    `errors`
+                                ).innerHTML = `You don't have anything to store the water in.`;
                             }
                         } else {
-                            if (player._inventory.includes(`${emptyJar.name}`)) {
+                            if (
+                                player._inventory.includes(`${emptyJar.name}`)
+                            ) {
                                 showErrors();
-                                document.getElementById(`errors`).innerHTML = `You attempt to fill the jar up with water 
+                                document.getElementById(
+                                    `errors`
+                                ).innerHTML = `You attempt to fill the jar up with water 
                                     from the fountain, but you are stopped in your tracks.`;
                             }
                             player.startFight(tree);
@@ -1132,45 +1397,55 @@ function commandHandler(command) {
                             player.startFight(tree);
                         } else {
                             showErrors();
-                            document.getElementById(`errors`).innerHTML = `What torch?`;
+                            document.getElementById(
+                                `errors`
+                            ).innerHTML = `What torch?`;
                         }
                         break;
-                    default: 
+                    default:
                         showErrors();
-                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        document.getElementById(
+                            `errors`
+                        ).innerHTML = `You can't do that.`;
                         break;
-                } 
+                }
             } else if (currentRoom.name === `Conservatory`) {
-                switch(command) {
+                switch (command) {
                     case `apples`:
                     case `apple`:
                     case `red apples`:
                     case `red apple`:
                         player.eatFood(redApple);
                         break;
-                    default: 
+                    default:
                         showErrors();
-                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        document.getElementById(
+                            `errors`
+                        ).innerHTML = `You can't do that.`;
                         break;
                 }
             } else if (currentRoom.name === `West Corridor`) {
-                switch(command) {
+                switch (command) {
                     case `sword`:
                     case `knight`:
                         player.startFight(knights);
                         break;
                     case `torch`:
                     case `unlit torch`:
-                        document.getElementById(`items`).innerHTML = `You pick up an unlit torch.`;
+                        document.getElementById(
+                            `items`
+                        ).innerHTML = `You pick up an unlit torch.`;
                         player.addToInventory(unlitTorch);
                         break;
-                    default: 
+                    default:
                         showErrors();
-                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        document.getElementById(
+                            `errors`
+                        ).innerHTML = `You can't do that.`;
                         break;
                 }
             } else if (currentRoom.name === `Ballroom`) {
-                switch(command) {
+                switch (command) {
                     case `curtain`:
                     case `curtains`:
                         player.startFight(witches);
@@ -1182,47 +1457,63 @@ function commandHandler(command) {
                             player.startFight(witches);
                         } else {
                             showErrors();
-                            document.getElementById(`errors`).innerHTML = `You can't do that.`;    
+                            document.getElementById(
+                                `errors`
+                            ).innerHTML = `You can't do that.`;
                         }
-                        break; 
-                    default: 
+                        break;
+                    default:
                         showErrors();
-                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        document.getElementById(
+                            `errors`
+                        ).innerHTML = `You can't do that.`;
                         break;
                 }
             } else if (currentRoom.name === `Viewing Platform`) {
-                switch(command) {
+                switch (command) {
                     case `flute`:
-                        document.getElementById(`items`).innerHTML = `You pick up a flute.`;
+                        document.getElementById(
+                            `items`
+                        ).innerHTML = `You pick up a flute.`;
                         player.addToInventory(flute);
                         break;
                     case `mirror`:
-                        document.getElementById(`items`).innerHTML = `You pick up a mirror.`;
+                        document.getElementById(
+                            `items`
+                        ).innerHTML = `You pick up a mirror.`;
                         player.addToInventory(mirror);
                         break;
-                    default: 
+                    default:
                         showErrors();
-                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        document.getElementById(
+                            `errors`
+                        ).innerHTML = `You can't do that.`;
                         break;
                 }
             } else if (currentRoom.name === `Upper Foyer`) {
-                switch(command) {
+                switch (command) {
                     case `clock`:
                     case `painting`:
-                        document.getElementById(`items`).innerHTML = `You note down the time on the Clock in the painting. It's 7:06.`;
+                        document.getElementById(
+                            `items`
+                        ).innerHTML = `You note down the time on the Clock in the painting. It's 7:06.`;
                         player.addToInventory(clockTime);
-                        break;  
-                    default: 
+                        break;
+                    default:
                         showErrors();
-                        document.getElementById(`errors`).innerHTML = `You can't do that.`; 
+                        document.getElementById(
+                            `errors`
+                        ).innerHTML = `You can't do that.`;
                         break;
                 }
             } else if (currentRoom.name === `Ritual Chamber`) {
-                switch(command) {
+                switch (command) {
                     case `candle`:
-                        document.getElementById(`items`).innerHTML = `You pick up a candle.`;
+                        document.getElementById(
+                            `items`
+                        ).innerHTML = `You pick up a candle.`;
                         player.addToInventory(candle);
-                        break; 
+                        break;
                     case `wine`:
                     case `bottle`:
                     case `goblet`:
@@ -1236,36 +1527,62 @@ function commandHandler(command) {
                         if (player.inventory.includes(clockTime.name)) {
                             if (player._kills.includes(`Clock`)) {
                                 showErrors();
-                                document.getElementById(`errors`).innerHTML = `You have already found a secret tunnel behind the clock.`;
+                                document.getElementById(
+                                    `errors`
+                                ).innerHTML = `You have already found a secret tunnel behind the clock.`;
                             } else {
-                                document.getElementById(`errors`).style.display = `none`;
-                                document.getElementById(`items`).style.display = `none`;
-                                document.getElementById(`health`).style.display = `none`;
-                                document.getElementById(`location`).style.display = `none`;
-                                document.getElementById(`description`).innerHTML = `You inspect the clock and notice a draft from the 
+                                document.getElementById(
+                                    `errors`
+                                ).style.display = `none`;
+                                document.getElementById(
+                                    `items`
+                                ).style.display = `none`;
+                                document.getElementById(
+                                    `health`
+                                ).style.display = `none`;
+                                document.getElementById(
+                                    `location`
+                                ).style.display = `none`;
+                                document.getElementById(
+                                    `description`
+                                ).innerHTML = `You inspect the clock and notice a draft from the 
                                     wall behind it. You recall seeing this clock in a painting on the Upper Foyer and move its hands 
                                     to replicate the time shown in the picture. The clock's chimes strike once and its door swings open. 
                                     The floor rumbles as the wall behind the clock opens to reveal a dark tunnel ahead.`;
-                                document.getElementById(`buttonarea`).style.display=`block`;
-                                document.getElementById(`buttonarea`).innerHTML = `<input id="clockUnlockButton" type="button" value="Continue" class="btn text-center" onclick="clockUnlock();"/>`;
-                                document.getElementById(`userinput`).style.display = `none`;
-                                document.getElementById(`health-area`).style.display = `none`;
-                                document.getElementById(`inventory-area`).style.display = `none`;
+                                document.getElementById(
+                                    `buttonarea`
+                                ).style.display = `block`;
+                                document.getElementById(
+                                    `buttonarea`
+                                ).innerHTML = `<input id="clockUnlockButton" type="button" value="Continue" class="btn text-center" onclick="clockUnlock();"/>`;
+                                document.getElementById(
+                                    `userinput`
+                                ).style.display = `none`;
+                                document.getElementById(
+                                    `health-area`
+                                ).style.display = `none`;
+                                document.getElementById(
+                                    `inventory-area`
+                                ).style.display = `none`;
                                 player._kills.push(`Clock`);
                             }
                         } else {
                             showErrors();
-                            document.getElementById(`errors`).innerHTML = `This clock looks familiar, as if you have seen it somewhere 
+                            document.getElementById(
+                                `errors`
+                            ).innerHTML = `This clock looks familiar, as if you have seen it somewhere 
                                 recently. You notice a draft from the wall behind it but feel you might be missing something.`;
                         }
                         break;
-                    default: 
+                    default:
                         showErrors();
-                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        document.getElementById(
+                            `errors`
+                        ).innerHTML = `You can't do that.`;
                         break;
                 }
             } else if (currentRoom.name === `Inner Sanctum`) {
-                switch(command) {
+                switch (command) {
                     case `fight`:
                         player.startFight(vampire);
                         break;
@@ -1275,7 +1592,9 @@ function commandHandler(command) {
                             player.startFight(vampire);
                         } else {
                             showErrors();
-                            document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                            document.getElementById(
+                                `errors`
+                            ).innerHTML = `You can't do that.`;
                         }
                         break;
                     case `mirror`:
@@ -1283,7 +1602,9 @@ function commandHandler(command) {
                             player.startFight(vampire);
                         } else {
                             showErrors();
-                            document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                            document.getElementById(
+                                `errors`
+                            ).innerHTML = `You can't do that.`;
                         }
                         break;
                     case `garlic`:
@@ -1291,36 +1612,46 @@ function commandHandler(command) {
                             player.startFight(vampire);
                         } else {
                             showErrors();
-                            document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                            document.getElementById(
+                                `errors`
+                            ).innerHTML = `You can't do that.`;
                         }
                         break;
                     case `flee`:
                         currentRoom.move(`north`);
                         break;
-                    default: 
+                    default:
                         showErrors();
-                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        document.getElementById(
+                            `errors`
+                        ).innerHTML = `You can't do that.`;
                         break;
                 }
             } else if (currentRoom.name === `Foyer`) {
-                switch(command) {
-                    default: 
+                switch (command) {
+                    default:
                         showErrors();
-                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        document.getElementById(
+                            `errors`
+                        ).innerHTML = `You can't do that.`;
                         break;
                 }
             } else if (currentRoom.name === `Library`) {
-                switch(command) {
-                    default: 
+                switch (command) {
+                    default:
                         showErrors();
-                        document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                        document.getElementById(
+                            `errors`
+                        ).innerHTML = `You can't do that.`;
                         break;
                 }
             } else {
                 showErrors();
-                document.getElementById(`errors`).innerHTML = `You can't do that here.`;
+                document.getElementById(
+                    `errors`
+                ).innerHTML = `You can't do that here.`;
                 break;
-            }   
+            }
             break;
         case `restart`:
             location.reload();
@@ -1334,16 +1665,22 @@ function startGame() {
     document.getElementById(`game-details`).style.display = `block`;
     currentRoom = foyer;
     document.getElementById(`title`).innerHTML = `<h1>Where Am I?</h1>`;
-    document.getElementById(`description`).innerHTML = `You wake up in a daze. You are disoriented and dehydrated. All you remember 
+    document.getElementById(
+        `description`
+    ).innerHTML = `You wake up in a daze. You are disoriented and dehydrated. All you remember 
         is the raging storm of wind and rain that started without warning when you were walking home from work last night. You conclude 
         that you must have found your way here, for shelter from the bitter cold, and passed out due to exhaustion. You can't hear the 
         lashing rain anymore, only the sound of silence. You pick yourself up off the ground to try the front door, hoping you can sneak 
         away before anyone notices your intrusion. Your hand reaches for the brass handle of the threatening doors to the outside world 
         when you hear the click of a metal latch. You tremble, searching erratically for your mobile phone, to no avail. You are locked 
         inside. If the front door is no longer an option, there must be another way to...</p>`;
-    document.getElementById(`buttonarea`).innerHTML = `<input id="foyerButton" type="button" value="Escape from the Manor" class="btn text-center" onclick="displayRoomInfo(foyer);"/>`;
+    document.getElementById(
+        `buttonarea`
+    ).innerHTML = `<input id="foyerButton" type="button" value="Escape from the Manor" class="btn text-center" onclick="displayRoomInfo(foyer);"/>`;
     player.updateHealth();
-    document.getElementById(`inventory-area`).innerHTML = `<p>You have nothing in your inventory yet.</p>`;
+    document.getElementById(
+        `inventory-area`
+    ).innerHTML = `<p>You have nothing in your inventory yet.</p>`;
     document.getElementById(`userinput`).style.display = `none`;
     document.getElementById(`health-area`).style.display = `none`;
     document.getElementById(`inventory-area`).style.display = `none`;
@@ -1351,20 +1688,66 @@ function startGame() {
         if (event.key === `Enter`) {
             command = document.getElementById(`usertext`).value.toLowerCase();
             const directions = [`north`, `south`, `east`, `west`];
-            const commands = [`restart`, `fire`, `hearth`, `bucket`, `coal`, `hog`, `table`, `eat`, `jar`, `jars`, `empty jar`, 
-                `empty jars`, `shelf`, `shelves`, `cupboard`, `apples`, `apple`, `green apples`, `green apple`, `red apples`, 
-                `red apple`, `fountain`, `water`, `tree`, `oak tree`, `sword`, `knight`, `torch`, `unlit torch`, `curtain`, 
-                `curtains`, `incantation`, `page`, `flute`, `mirror`, `clock`, `painting`, `candle`, `wine`, `bottle`, `goblet`, 
-                `grapes`, `red grapes`, `fight`, `holy water`, `garlic`, `flee`];
+            const commands = [
+                `restart`,
+                `fire`,
+                `hearth`,
+                `bucket`,
+                `coal`,
+                `hog`,
+                `table`,
+                `eat`,
+                `jar`,
+                `jars`,
+                `empty jar`,
+                `empty jars`,
+                `shelf`,
+                `shelves`,
+                `cupboard`,
+                `apples`,
+                `apple`,
+                `green apples`,
+                `green apple`,
+                `red apples`,
+                `red apple`,
+                `fountain`,
+                `water`,
+                `tree`,
+                `oak tree`,
+                `sword`,
+                `knight`,
+                `torch`,
+                `unlit torch`,
+                `curtain`,
+                `curtains`,
+                `incantation`,
+                `page`,
+                `flute`,
+                `mirror`,
+                `clock`,
+                `painting`,
+                `candle`,
+                `wine`,
+                `bottle`,
+                `goblet`,
+                `grapes`,
+                `red grapes`,
+                `fight`,
+                `holy water`,
+                `garlic`,
+                `flee`,
+            ];
             if (directions.includes(command)) {
                 currentRoom = currentRoom.move(command);
             } else if (commands.includes(command)) {
                 commandHandler(command, currentRoom.character);
             } else {
                 showErrors();
-                document.getElementById(`errors`).innerHTML = `You can't do that.`;
+                document.getElementById(
+                    `errors`
+                ).innerHTML = `You can't do that.`;
             }
             document.getElementById(`usertext`).value = ``;
         }
-    })
+    });
 }
